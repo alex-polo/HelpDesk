@@ -29,10 +29,10 @@ def get_version_app() -> str:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    print('lifespan start')
+    logger.info('Start startup events')
     await on_startup()
     yield
-    print('lifespan end')
+    logger.info('lifespan end')
 
 
 app = FastAPI(
@@ -62,8 +62,7 @@ async def on_startup() -> None:
     Функция выполняется при старте сервиса
     :return: None
     """
-    logger.info('Update system users')
-
+    logger.info('Configuration system users')
     admin_user_config: SystemUserConfig = get_admin_user_config()
     bot_user_config: SystemUserConfig = get_bot_user_config()
 
@@ -72,9 +71,12 @@ async def on_startup() -> None:
 
     if bot_user_config.resetting_user:
         await update_bot_user(bot_user_config=bot_user_config)
+    logger.info('Configuration system users is success')
 
+    logger.info('Configuration storage')
     storage_config: StorageConfig = get_storage_config()
     verify_storage(storage_config=storage_config)
+    logger.info('Configuration storage is success')
 
 
 # @app.on_event('shutdown')/

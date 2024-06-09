@@ -4,6 +4,7 @@ venv
 .idea
 Redis-x64-5.0.14.1
 cert
+storage
 __pycache__/
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
