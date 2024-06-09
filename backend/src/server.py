@@ -7,6 +7,7 @@ from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
 
 from src.auth import auth_router
 from src.config import SystemUserConfig, get_bot_user_config, get_admin_user_config, StorageConfig, get_storage_config
+from src.routes import telegram_router, frontend_router
 from src.services.startup import update_admin_user, update_bot_user, verify_storage
 
 logger = logging.getLogger(__name__)
@@ -36,14 +37,14 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title='LOGika',
+    title='HelpDesk',
     version=get_version_app(),
     lifespan=lifespan
 )
 
 app.include_router(auth_router)
-# app.include_router(public_router)
-# app.include_router(private_router)
+app.include_router(telegram_router)
+app.include_router(frontend_router)
 
 
 app.add_middleware(HTTPSRedirectMiddleware, )
