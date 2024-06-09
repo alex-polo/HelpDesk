@@ -1,7 +1,7 @@
 import os
 
 from environs import Env
-from .classes import DatabaseConfig, SystemUserConfig, AuthConfig
+from .classes import DatabaseConfig, SystemUserConfig, AuthConfig, StorageConfig
 
 
 def get_admin_user_config() -> SystemUserConfig:
@@ -43,4 +43,14 @@ def get_auth_config() -> AuthConfig:
 
     return AuthConfig(
         auth_secret_key=env.str('AUTH_SECRET_KEY')
+    )
+
+
+def get_storage_config() -> StorageConfig:
+    env = Env()
+    env.read_env(os.path.join(os.getcwd(), '.env'))
+
+    return StorageConfig(
+        url_yandex_disk=env.str('YANDEX_DISK_URL'),
+        storage_folder=env.str('FOLDER')
     )

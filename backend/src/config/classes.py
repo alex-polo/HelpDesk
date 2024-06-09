@@ -2,6 +2,12 @@ from dataclasses import dataclass
 
 
 @dataclass
+class StorageConfig:
+    url_yandex_disk: str
+    storage_folder: str
+
+
+@dataclass
 class AuthConfig:
     auth_secret_key: str
 

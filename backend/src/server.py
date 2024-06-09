@@ -6,8 +6,8 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
 
 from src.auth import auth_router
-from src.config import SystemUserConfig, get_bot_user_config, get_admin_user_config
-from src.services.startup import update_admin_user, update_bot_user
+from src.config import SystemUserConfig, get_bot_user_config, get_admin_user_config, StorageConfig, get_storage_config
+from src.services.startup import update_admin_user, update_bot_user, verify_storage
 
 logger = logging.getLogger(__name__)
 
@@ -72,6 +72,9 @@ async def on_startup() -> None:
 
     if bot_user_config.resetting_user:
         await update_bot_user(bot_user_config=bot_user_config)
+
+    storage_config: StorageConfig = get_storage_config()
+    verify_storage(storage_config=storage_config)
 
 
 # @app.on_event('shutdown')/
