@@ -17,4 +17,4 @@ class TGUser(Base):
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, unique=False, default=True)
 
     role_id: Mapped[int] = mapped_column(ForeignKey("tg_roles.id"))
-    tg_role: Mapped["TGRoles"] = relationship(back_populates="parents")
+    tg_role: Mapped["TGRoles"] = relationship(back_populates="tg_users")

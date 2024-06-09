@@ -11,4 +11,4 @@ class TGRoles(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(100), nullable=False, unique=True)
-    tg_users: Mapped[List['TGUser']] = relationship(back_populates="child")
+    tg_users: Mapped[List['TGUser']] = relationship(back_populates="tg_role")
