@@ -10,16 +10,18 @@ from fastapi_users.authentication import (
 from fastapi_users.db import SQLAlchemyUserDatabase
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from src.config import get_auth_config, AuthConfig
 from src.database import get_async_session
 from src.models import User
 
-SECRET: str = "SECRET"
+
+auth_config: AuthConfig = get_auth_config()
+SECRET: str = auth_config.auth_secret_key
 
 
 class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
     reset_password_token_secret = SECRET
     verification_token_secret = SECRET
-
 
 
     async def on_after_register(self, user: User, request: Optional[Request] = None):

@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class ServerConfig:
+class AuthConfig:
     auth_secret_key: str
 
 

@@ -6,6 +6,7 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
 
 from src.auth import auth_router
+from src.config import SystemUserConfig, get_bot_user_config, get_admin_user_config
 from src.services.startup import update_admin_user, update_bot_user
 
 logger = logging.getLogger(__name__)
@@ -28,8 +29,10 @@ def get_version_app() -> str:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    print('lifespan start')
+    await on_startup()
     yield
-    pass
+    print('lifespan end')
 
 
 app = FastAPI(
@@ -53,20 +56,25 @@ app.add_middleware(
 )
 
 
-@app.on_event("startup")
+# @app.on_event("startup")
 async def on_startup() -> None:
     """
     Функция выполняется при старте сервиса
     :return: None
     """
     logger.info('Update system users')
-    bot_user_config =
-    update_admin_user()
-    update_bot_user()
+
+    admin_user_config: SystemUserConfig = get_admin_user_config()
+    bot_user_config: SystemUserConfig = get_bot_user_config()
+
+    if admin_user_config.resetting_user:
+        await update_admin_user(admin_user_config=admin_user_config)
+
+    if bot_user_config.resetting_user:
+        await update_bot_user(bot_user_config=bot_user_config)
 
 
-
-@app.on_event('shutdown')
+# @app.on_event('shutdown')/
 def on_shutdown() -> None:
     """ Функция выполняется при остановке сервиса """
     pass
