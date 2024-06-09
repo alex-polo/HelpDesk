@@ -1,0 +1,17 @@
+version: "3.6"
+services:
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    env_file:
+      - backend/.env
+    container_name: backend-server
+#    volumes:
+#      - /ftas01/apps/logika/storage:/logika-server/storage:rw
+#      - d:\dev\108bit\logic_server\storage\:/logika-server/storage:rw
+    ports:
+      - "8443:8443"
+    restart: on-failure
+    command: ["sh", "/backend-server/run.sh"]
+#    command: ["ls", "-l"]
