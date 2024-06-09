@@ -6,6 +6,7 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
 
 from src.auth import auth_router
+from src.services.startup import update_admin_user, update_bot_user
 
 logger = logging.getLogger(__name__)
 
@@ -58,11 +59,11 @@ async def on_startup() -> None:
     Функция выполняется при старте сервиса
     :return: None
     """
+    logger.info('Update system users')
+    bot_user_config =
+    update_admin_user()
+    update_bot_user()
 
-    # Кэширование данных
-    # redis = aioredis.from_url("redis://localhost")
-    # FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
-    pass
 
 
 @app.on_event('shutdown')

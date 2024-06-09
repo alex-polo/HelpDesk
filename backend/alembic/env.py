@@ -7,7 +7,7 @@ from sqlalchemy import pool
 
 from alembic import context
 from src.config import DatabaseConfig
-from src.config.utils import get_database_config
+from src.config import get_database_config
 from src.models import Base
 
 sys.path.append(os.path.join(sys.path[0], 'src'))

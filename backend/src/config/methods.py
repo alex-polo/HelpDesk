@@ -1,16 +1,26 @@
 import os
 
 from environs import Env
-from .classes import DatabaseConfig, AdminUserConfig
+from .classes import DatabaseConfig, SystemUserConfig
 
 
-def get_admin_user_config() -> AdminUserConfig:
+def get_admin_user_config() -> SystemUserConfig:
     env = Env()
     env.read_env(os.path.join(os.getcwd(), '.env'))
-    return AdminUserConfig(
-        username=env.str('ADMIN_LOGIN'),
-        password=env.str('ADMIN_PASSWORD'),
-        resetting_admin_user=True if env.str('RESETTING_ADMIN') == 'YES' else False
+    return SystemUserConfig(
+        username=env.str('ADMIN_USER_LOGIN'),
+        password=env.str('ADMIN_USER_PASSWORD'),
+        resetting_user=True if env.str('RESETTING_ADMIN_USER') == 'YES' else False
+    )
+
+
+def get_bot_user_config() -> SystemUserConfig:
+    env = Env()
+    env.read_env(os.path.join(os.getcwd(), '.env'))
+    return SystemUserConfig(
+        username=env.str('BOT_USER_LOGIN'),
+        password=env.str('BOT_USER_PASSWORD'),
+        resetting_user=True if env.str('RESETTING_BOT_USER') == 'YES' else False
     )
 
 

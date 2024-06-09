@@ -7,10 +7,10 @@ class ServerConfig:
 
 
 @dataclass
-class AdminUserConfig:
+class SystemUserConfig:
     username: str
     password: str
-    resetting_admin_user: bool
+    resetting_user: bool
 
 
 @dataclass

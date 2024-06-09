@@ -1,5 +1,6 @@
+def update_admin_user():
+    pass
 
 
-
-def verify_system_user():
+def update_bot_user():
     pass
