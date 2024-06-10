@@ -4,6 +4,8 @@ from aiogram import Bot, Dispatcher
 from dotenv import load_dotenv
 from aiogram.fsm.storage.memory import MemoryStorage
 
+from tg_bot.handlers import main_menu
+
 load_dotenv()
 bot = Bot(os.getenv('TOKEN'))
 storage = MemoryStorage()
