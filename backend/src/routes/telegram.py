@@ -3,7 +3,6 @@ import logging
 import fastapi
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
-from starlette.responses import JSONResponse
 
 from src.auth.manager import current_active_user
 from src.database import get_async_session
@@ -21,7 +20,7 @@ telegram_router = APIRouter(
 @telegram_router.post("/user_is_exist", status_code=fastapi.status.HTTP_200_OK, response_model=TgUserIsExistModel)
 async def user_is_exist(tg_identifier: int,
                         session: AsyncSession = Depends(get_async_session),
-                        user: User = Depends(current_active_user)):
+                        user: User = Depends(current_active_user)) -> TgUserIsExistModel:
     return TgUserIsExistModel(is_exist=False)
     # return JSONResponse(
     #     status_code=fastapi.status.HTTP_200_OK,

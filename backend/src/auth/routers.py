@@ -3,7 +3,6 @@ from .manager import auth_backend, fastapi_users
 from .schemes import UserRead, UserCreate, UserUpdate
 
 auth_router = APIRouter(
-    prefix="/auth",
     tags=["auth"],
 )
 
@@ -15,6 +14,7 @@ auth_router.include_router(
 #     prefix="/auth",
 #     tags=["auth"],
 # )
+
 # auth_router.include_router(
 #     fastapi_users.get_reset_password_router(),
 #     prefix="/auth",
