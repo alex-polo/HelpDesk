@@ -4,7 +4,8 @@ const Endpoints = {
   BASE_URL: BASE_ENDPOINT,
   AUTH: {
     login: `${BASE_ENDPOINT}/auth/jwt/login`,
-    logout: `${BASE_ENDPOINT}/auth/jwt/login`,
+    logout: `${BASE_ENDPOINT}/auth/jwt/logout`,
+    user_profile: `${BASE_ENDPOINT}/users/me`,
   },
 };
 

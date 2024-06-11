@@ -35,6 +35,15 @@ h1 {
   line-height: 1.1;
 }
 
+/* .wrapper {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  min-height: 100vh;
+  flex-direction: column;
+  overflow: hidden;
+} */
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
