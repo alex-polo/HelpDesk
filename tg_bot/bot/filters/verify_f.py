@@ -1,10 +1,7 @@
 from aiogram.filters import BaseFilter
 from aiogram.types import Message
 
-from tg_bot.botapi.auth import get_users_list
-
-# user_id: list[int] = [5175421239, 1344084119, 186208978, 223663162]
-user_id = await get_users_list()
+user_id: list[int] = [5175421239, 1344084119, 186208978, 223663162]
 
 
 class VerifyUser(BaseFilter):
