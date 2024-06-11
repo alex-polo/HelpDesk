@@ -17,9 +17,6 @@ if __name__ == '__main__':
         bot_credentials: ApiCredentials = get_api_credentials()
         bot_config: BotConfig = get_bot_config()
         bot_endpoints: Endpoints = get_endpoints_config()
-        api_params = APIParams()
-        # api_params.set_endpoints(bot_endpoints)
-        # print(api_params.get_endpoints())
         # if len(bot_config.token) == 0:
         #     raise Exception('Не найден токен')
 

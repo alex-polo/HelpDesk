@@ -10,5 +10,5 @@ router = Router()
 
 @router.message(CommandStart(), VerifyUser(user_id))
 async def cmd_start(message: Message):
-    resp = await bot_login()
-    await message.answer(resp.status)
+    await bot_login()
+    await message.answer("ok")
