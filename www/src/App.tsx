@@ -13,7 +13,7 @@ import { ToastContainer } from 'react-toastify';
 function App(): ReactElement {
   return (
     <>
-      <main className="wrapper">
+      <div className="wrapper">
         <Routes>
           <Route path={AppRoutes.AUTH.login} element={<LoginForm />} />
           <Route
@@ -25,7 +25,7 @@ function App(): ReactElement {
             }
           />
         </Routes>
-      </main>
+      </div>
       <ToastContainer autoClose={5000} />
     </>
   );

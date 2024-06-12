@@ -9,6 +9,7 @@ export const loginAPI = async (login: string, password: string) => {
       { username: login, password: password },
       { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
     );
+    console.log(data);
     return data;
   } catch (error) {
     console.log(`Failed to login user: ${login}`);
@@ -16,28 +17,41 @@ export const loginAPI = async (login: string, password: string) => {
 };
 
 export const logoutAPI = async (token: string) => {
-  const { data } = await axiosInstance.post(Endpoints.AUTH.logout, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  try {
+    const { status } = await axiosInstance.post(
+      Endpoints.AUTH.logout,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(status);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log(error.response?.data);
+    } else {
+      console.log(error);
+    }
+  }
 };
 
-// export const getUserProfileAPI = async (token: string) => {
-//   try {
-//     const { data } = await axiosInstance.get<UserProfileVerify>(Endpoints.AUTH.user_profile, {
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
-//     // return data;
-//     return true;
-//   } catch (error) {
-//     if (axios.isAxiosError(error)) {
-//       console.log(error.response?.data);
-//     } else {
-//       console.log(error);
-//     }
-//     return false;
-//   }
-// };
+export const getUserProfileAPI = async (token: string) => {
+  try {
+    const { data } = await axiosInstance.get<UserProfileVerify>(Endpoints.AUTH.user_profile, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    // return data;
+    return true;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log(error.response?.data);
+    } else {
+      console.log(error);
+    }
+    return false;
+  }
+};
