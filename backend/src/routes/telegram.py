@@ -31,7 +31,6 @@ async def tg_user_appeal_params(tg_user_request: TgUserRequest,
                                 session: AsyncSession = Depends(get_async_session),
                                 user: User = Depends(current_active_user)):
     return TgAppealParamsResponse(
-        company='example',
         building=['A', 'B'],
         system=['СПС', 'СПА', 'СОУЭ'],
         incident=['сработка', 'неисправность'],
