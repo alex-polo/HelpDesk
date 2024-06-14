@@ -1,37 +1,53 @@
+import asyncio
 import json
 
 from aiogram.client.session import aiohttp
+from aiohttp.web_exceptions import HTTPUnauthorized
 
-from botapi.params import APIParams
-from config import get_endpoints_config, get_api_credentials
-
-ENDPOINTS = get_endpoints_config()
-AC = get_api_credentials()
+import params
+from botapi import need_login
 
 
-async def bot_login() -> str:
+@need_login
+async def get_tg_user_role(tg_id: int) -> str:
     async with aiohttp.ClientSession() as session:
-        headers = {'content-type': 'application/x-www-form-urlencoded', 'accept': 'application/json'}
-        async with session.post(url=ENDPOINTS.login,
-                                data=f'username={AC.login}&password={AC.password}',
+        headers = {'content-type': 'application/json',
+                   'accept': 'application/json',
+                   'Authorization': f'Bearer {params.TOKEN}'}
+        async with session.post(url=params.ENDPOINTS.tg_user_role,
+                                data=json.dumps({'tg_id': tg_id}),
                                 headers=headers) as resp:
-            token: str = (await resp.json()).get('access_token')
-            if token is not None:
-                return token
+            if resp.status == 401:
+                raise HTTPUnauthorized()
+
+            user_role: str = (await resp.json()).get('role')
+            if user_role is not None:
+                return user_role
             else:
-                raise Exception('Token is None in response server')
+                raise Exception('User role is None in response server')
 
 
-async def get_token():
-    try:
-        atoken = await bot_login()
-        print(atoken)
-    except Exception as error:
-        print(error)
+@need_login
+async def get_tg_user_appeal_params(tg_id: int = 0) -> str:
+    async with aiohttp.ClientSession() as session:
+        headers = {'content-type': 'application/json',
+                   'accept': 'application/json',
+                   "authorization": f"Bearer {params.TOKEN}"}
+        async with session.post(url=params.ENDPOINTS.tg_user_appeal_params,
+                                data=json.dumps({'tg_id': tg_id}),
+                                headers=headers) as resp:
+            if resp.status == 401:
+                raise HTTPUnauthorized()
+            user_appeal: str = (await resp.json())
+            if user_appeal is not None:
+                return user_appeal
+            else:
+                raise Exception('User Appeal is None in response server')
 
 
-TOKEN = get_token()
+async def main():
+    print(await get_tg_user_appeal_params())
 
-@login
-async def get_user_roles():
-    pass
+
+if __name__ == '__main__':
+    asyncio.run(main())

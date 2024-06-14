@@ -1,6 +1,5 @@
 
 import bot
-from botapi.params import APIParams
 from config import ApiCredentials, BotConfig, Endpoints, get_endpoints_config, get_bot_config, get_api_credentials
 
 # from tg_bot.config import (ApiCredentials,

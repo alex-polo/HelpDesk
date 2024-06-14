@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 
 from .classes import ApiCredentials, BotConfig, Endpoints
-from .endpoints import login_url, logout_url, user_is_exist_url
+from .endpoints import login_url, logout_url, tg_user_role_url, tg_user_appeal_params_url
 
 
 def get_api_credentials() -> ApiCredentials:
@@ -28,5 +28,7 @@ def get_endpoints_config() -> Endpoints:
         base_url=base_url,
         login=f'{base_url}/{login_url}',
         logout=f'{base_url}/{logout_url}',
-        user_is_exist=f'{base_url}/{user_is_exist_url}',
+        tg_user_role=f'{base_url}/{tg_user_role_url}',
+        tg_user_appeal_params=f'{base_url}/{tg_user_appeal_params_url}',
     )
+
