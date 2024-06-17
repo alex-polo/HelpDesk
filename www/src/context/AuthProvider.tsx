@@ -11,9 +11,9 @@ type UserContextType = {
   logout: () => void;
   isLoggedIn: () => boolean;
   loginUser: (loginUserData: UserLoginData) => Promise<void>;
-  // userProfile: UserProfile | null;
   getUserInfo: () => Promise<UserInfo>;
   unauthorized: () => void;
+  getToken: () => string;
 };
 
 const AuthContext = createContext<UserContextType>({} as UserContextType);
@@ -82,8 +82,29 @@ export const AuthProvider = ({ children }: Props) => {
     navigate(AppRoutes.AUTH.login);
   };
 
+  const getToken = (): string => {
+    const valueProfile = localStorage.getItem('userProfile');
+    if (valueProfile != null) {
+      return JSON.parse(valueProfile).access_token;
+    } else {
+      unauthorized();
+      return '';
+    }
+    // if (userProfile == null) {
+    //   const valueProfile = localStorage.getItem('userProfile');
+    //   if (valueProfile != null) {
+    //     return JSON.parse(valueProfile).access_token;
+    //   } else {
+    //     unauthorized();
+    //     return '';
+    //   }
+    // } else {
+    //   return userProfile.access_token;
+    // }
+  };
+
   return (
-    <AuthContext.Provider value={{ loginUser, logout, isLoggedIn, unauthorized, getUserInfo }}>
+    <AuthContext.Provider value={{ getToken, loginUser, logout, isLoggedIn, unauthorized, getUserInfo }}>
       {isReady ? children : null}
     </AuthContext.Provider>
   );

@@ -8,10 +8,6 @@ export const loginAPI = async (login: string, password: string): Promise<AxiosRe
     { username: login, password: password },
     { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
   );
-  // return data;
-  // } catch (error) {
-  //   console.log(`Failed to login user: ${login}`);
-  // }
 };
 
 export const logoutAPI = async (token: string) => {

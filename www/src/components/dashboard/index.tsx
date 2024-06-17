@@ -4,6 +4,7 @@ import NavBar from '../navbar';
 import Sidebar from '../sidebar';
 import { useAuth } from '../../context/AuthProvider';
 import { Spinner } from 'react-bootstrap';
+import { MainContent } from '../mainContent';
 
 type Props = {};
 
@@ -23,9 +24,7 @@ export const Dashboard = (props: Props): ReactElement => {
         <Sidebar />
         <div className="main">
           <NavBar username={queryUserInfo.isSuccess ? queryUserInfo.data?.email : 'undefined'} />
-          <main>
-            <div></div>
-          </main>
+          <MainContent />
         </div>
       </>
     );

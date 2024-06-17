@@ -1,34 +1,69 @@
 import { ReactElement } from 'react';
 
-import style from './sidebarMenu.module.css';
 import { useQuery } from '@tanstack/react-query';
+import { Button, Spinner } from 'react-bootstrap';
+
+import style from './sidebarMenu.module.css';
+import { getObjectsAPI } from '../../services/ObjectusService';
+import { useAuth } from '../../context/AuthProvider';
 
 export const SidebarMenu = (): ReactElement => {
-  // const { isPending, error, data } = useQuery({
-  //   queryKey: ['getObjects'],
-  //   queryFn: () => fetch('https://api.github.com/repos/TanStack/query').then((res) => res.json()),
-  // });
+  const { getToken } = useAuth();
+  const { isLoading, isError, data } = useQuery({
+    queryKey: ['getObjectusObjects'],
+    queryFn: () => getObjectsAPI(getToken()),
+  });
   // if (isPending) return <>'Loading...'</>;
   // if (error) return <>error</>;
-  // console.log(111);
-  // console.log(data);
+
+  if (isLoading)
+    return (
+      <>
+        <Spinner animation="border" variant="primary" />
+      </>
+    );
+
+  if (isError)
+    return (
+      <>
+        <ul className={style.sidebar_nav}>
+          <li className={style.sidebar_header}>Не удалось получить данные от сервера</li>
+        </ul>
+      </>
+    );
+
   return (
     <>
-      <span className={style.sidebar_header}>Мои объекты</span>
-      {/* <ul>
-        {data?.map((todo) => (
-          <li key={todo.id}>{todo.title}</li>
+      <ul className={style.sidebar_nav}>
+        <li className={style.sidebar_header}>Мои объекты</li>
+
+        {data?.map((objectusObject) => (
+          <li key={objectusObject.id}>
+            <a className={style.sidebar_link}>
+              <span>{objectusObject.name}</span>
+            </a>
+          </li>
         ))}
-      </ul> */}
-      {/* <a href="111">Создать объект</a> */}
-      {/* <Nav.Link onClick={handlerClick}>1111111</Nav.Link>
-          <Nav.Link href="/#">Объект 1</Nav.Link>
-          <Nav.Link href="/#">+ Добавить Объект</Nav.Link> */}
-      {/* <Nav.Link eventKey="link-1">Link</Nav.Link>
-          <Nav.Link eventKey="link-2">Link</Nav.Link>
-          <Nav.Link eventKey="disabled" disabled>
-            Disabled
-          </Nav.Link> */}
+        <li className={style.sidebar_link}>
+          <Button className="btn btn-primary btn-sm">+ Новый объект</Button>
+        </li>
+      </ul>
+
+      <ul className={style.sidebar_nav}>
+        <li className={style.sidebar_header}>Настройки</li>
+
+        <li className="active">
+          <a className={style.sidebar_link}>
+            <span>Сбербанк</span>
+          </a>
+        </li>
+
+        <li className="sidebar-item">
+          <a className="sidebar-link" href="pages-profile.html">
+            <span className="align-middle">Profile</span>
+          </a>
+        </li>
+      </ul>
     </>
   );
 };

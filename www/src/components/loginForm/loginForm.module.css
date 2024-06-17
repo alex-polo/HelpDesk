@@ -3,12 +3,13 @@
   line-height: 2em;
   top: 50%;
   left: 50%;
-  width: 27em;
+  width: 24em;
   padding: 40px;
   transform: translate(-50%, -50%);
   background: #fff;
   box-sizing: border-box;
-  box-shadow: 0 0 10px rgba(153, 150, 150, 0.6);
-  border-radius: 10px;
+  /* box-shadow: 0 0 10px rgba(153, 150, 150, 0.6); */
+  border-radius: 5px;
   text-align: center !important;
+  box-shadow: var(--bs-box-shadow) !important;
 }

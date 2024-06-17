@@ -13,3 +13,8 @@ class TGUserResponseModel(BaseModel):
 
 class QueryValue(BaseModel):
     data: str
+
+
+class ObjectResponse(BaseModel):
+    id: int
+    name: str
