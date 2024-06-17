@@ -2,8 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import axiosInstance from '../api/AxiosInstance';
 import Endpoints from '../api/Endpoints';
 
-export const loginAPI = async (login: string, password: string) => {
-  // try {
+export const loginAPI = async (login: string, password: string): Promise<AxiosResponse> => {
   return await axiosInstance.post<UserAccessToken>(
     Endpoints.AUTH.login,
     { username: login, password: password },

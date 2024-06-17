@@ -10,7 +10,7 @@ type Props = { children: React.ReactNode };
 type UserContextType = {
   logout: () => void;
   isLoggedIn: () => boolean;
-  loginUser: (email: string, password: string) => Promise<boolean>;
+  loginUser: (loginUserData: UserLoginData) => Promise<void>;
   // userProfile: UserProfile | null;
   getUserInfo: () => Promise<UserInfo>;
   unauthorized: () => void;
@@ -37,16 +37,17 @@ export const AuthProvider = ({ children }: Props) => {
     return userProfile != null ? true : false;
   };
 
-  const loginUser = async (email: string, password: string): Promise<boolean> => {
+  const loginUser = async (loginUserData: UserLoginData): Promise<void> => {
     unauthorized();
-    const data: UserAccessToken | undefined = (await loginAPI(email, password)).data;
-    if (data == undefined) {
-      return false;
-    } else {
-      const profile: UserProfile = { email: email, access_token: data.access_token };
+    try {
+      const data: UserAccessToken = (await loginAPI(loginUserData.email, loginUserData.password)).data;
+      const profile: UserProfile = { email: loginUserData.email, access_token: data.access_token };
       localStorage.setItem('userProfile', JSON.stringify(profile));
       setUserProfile(profile);
       navigate(AppRoutes.USER_PROFILE.home);
+    } catch (error) {
+      unauthorized();
+      throw new Error('getUserProfileInfoAPI response was not ok');
     }
   };
 

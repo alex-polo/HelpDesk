@@ -3,6 +3,11 @@ type UserAccessToken = {
   token_type: string;
 };
 
+type UserLoginData = {
+  email: string;
+  password: string;
+};
+
 type UserInfo = {
   id: number;
   email: string;

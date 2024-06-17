@@ -28,8 +28,7 @@ async def get_tg_users(session: AsyncSession = Depends(get_async_session),
 
 
 @frontend_router.post("/create-object",
-                      status_code=fastapi.status.HTTP_201_CREATED,
-                      response_model=None)
+                      status_code=fastapi.status.HTTP_201_CREATED)
 async def create_object(value: QueryValue,
                         session: AsyncSession = Depends(get_async_session),
                         user: User = Depends(current_active_user)):
@@ -40,8 +39,7 @@ async def create_object(value: QueryValue,
 
 
 @frontend_router.get("/get-objects",
-                     status_code=fastapi.status.HTTP_201_CREATED,
-                     response_model=None)
+                     status_code=fastapi.status.HTTP_201_CREATED)
 async def get_objects(session: AsyncSession = Depends(get_async_session),
                       user: User = Depends(current_active_user)):
     if user.is_superuser is False:
