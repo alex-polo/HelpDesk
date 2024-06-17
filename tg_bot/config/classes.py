@@ -6,12 +6,15 @@ class Endpoints:
     base_url: str
     login: str
     logout: str
-    user_is_exist: str
+    tg_user_role: str
+    tg_user_appeal_params: str
+
 
 @dataclass
 class ApiCredentials:
     login: str
     password: str
+
 
 @dataclass
 class BotConfig:
