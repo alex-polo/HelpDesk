@@ -1,12 +1,15 @@
-import { Button, Container, Form, Nav, NavDropdown, Navbar } from 'react-bootstrap';
+import { Container, Form, Nav, NavDropdown, Navbar } from 'react-bootstrap';
 import { useAuth } from '../../context/AuthProvider';
+// import logout_img from '/images/logout.svg';
 
 import style from './navbar.module.css';
 
-type Props = {};
+type Props = {
+  username: string;
+};
 
 function NavBar(props: Props) {
-  const { userProfile, logout } = useAuth();
+  const { logout } = useAuth();
   function changeSidebar() {
     (document.getElementById('sidebar') as HTMLElement).classList.toggle('sidebar_hide');
   }
@@ -21,7 +24,9 @@ function NavBar(props: Props) {
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll></Nav>
           <Form className="d-flex">
-            <NavDropdown title={userProfile?.email} id="basic-nav-dropdown">
+            {/* <img src={logout_img} /> */}
+            {/* <img className={style.header_img} src={logout_img} /> */}
+            <NavDropdown title={props.username} id="basic-nav-dropdown">
               <NavDropdown.Item href="#">Настройки профиля</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={logout}>Выход</NavDropdown.Item>

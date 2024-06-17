@@ -1,2 +1,2 @@
 from .telegram import TgUserRoleResponse, TgUserRequest, TgAppealParamsResponse
-from .frontend import TGUserResponseModel
+from .frontend import TGUserResponseModel, QueryValue

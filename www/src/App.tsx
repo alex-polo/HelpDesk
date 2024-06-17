@@ -26,7 +26,7 @@ function App(): ReactElement {
           />
         </Routes>
       </div>
-      <ToastContainer autoClose={5000} />
+      <ToastContainer autoClose={7000} />
     </>
   );
 }

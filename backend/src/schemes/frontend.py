@@ -9,3 +9,7 @@ class TGUserResponseModel(BaseModel):
     phone_number_tg: str
     phone_number_human: str
     is_active: str
+
+
+class QueryValue(BaseModel):
+    data: str

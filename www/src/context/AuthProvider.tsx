@@ -1,6 +1,9 @@
 import { createContext, useEffect, useState } from 'react';
-import { loginAPI, logoutAPI } from '../services/AuthService';
+import { getUserProfileInfoAPI, loginAPI, logoutAPI } from '../services/AuthService';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import AppRoutes from '../routes/AppRoutes';
+import axios from 'axios';
 
 type Props = { children: React.ReactNode };
 
@@ -8,13 +11,15 @@ type UserContextType = {
   logout: () => void;
   isLoggedIn: () => boolean;
   loginUser: (email: string, password: string) => Promise<boolean>;
-  userProfile: UserProfile | null;
+  // userProfile: UserProfile | null;
+  getUserInfo: () => Promise<UserInfo>;
   unauthorized: () => void;
 };
 
 const AuthContext = createContext<UserContextType>({} as UserContextType);
 
 export const AuthProvider = ({ children }: Props) => {
+  const navigate = useNavigate();
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [isReady, setIsReady] = useState(false);
 
@@ -23,51 +28,61 @@ export const AuthProvider = ({ children }: Props) => {
 
     if (userProfileLocalStorage) {
       setUserProfile(JSON.parse(userProfileLocalStorage));
-      // console.log(`userProfile: ${userProfile}`);
-      // console.log(userProfile);
-      // console.log(`localStorageProfile: ${userProfileLocalStorage}`);
     }
 
     setIsReady(true);
   }, []);
 
+  const isLoggedIn = (): boolean => {
+    return userProfile != null ? true : false;
+  };
+
   const loginUser = async (email: string, password: string): Promise<boolean> => {
     unauthorized();
-    const data: UserAccessToken | undefined = await loginAPI(email, password);
+    const data: UserAccessToken | undefined = (await loginAPI(email, password)).data;
     if (data == undefined) {
       return false;
     } else {
       const profile: UserProfile = { email: email, access_token: data.access_token };
       localStorage.setItem('userProfile', JSON.stringify(profile));
       setUserProfile(profile);
-      return true;
+      navigate(AppRoutes.USER_PROFILE.home);
     }
   };
 
-  const isLoggedIn = (): boolean => {
-    console.log(userProfile);
-    // return localStorage.getItem('userProfile') != null ? true : false;
-    return userProfile != null ? true : false;
+  const getUserInfo = async (): Promise<UserInfo> => {
+    if (userProfile != null) {
+      try {
+        return (await getUserProfileInfoAPI(userProfile?.access_token)).data;
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          if (error.response?.status == 401) {
+            unauthorized();
+          }
+        } else {
+          console.log(error);
+        }
+      }
+    }
+
+    throw new Error('getUserProfileInfoAPI response was not ok');
   };
 
   const logout = () => {
     if (userProfile != null) {
-      console.log(`token: ${userProfile.access_token}`);
-      logoutAPI(userProfile.access_token).then(() => {
-        console.log('logoutAPI');
-        localStorage.removeItem('userProfile');
-      });
-    } else {
-      console.log('token is not defined');
+      logoutAPI(userProfile.access_token);
     }
+    unauthorized();
   };
 
   const unauthorized = () => {
     localStorage.removeItem('userProfile');
+    setUserProfile(null);
+    navigate(AppRoutes.AUTH.login);
   };
 
   return (
-    <AuthContext.Provider value={{ userProfile, loginUser, logout, isLoggedIn, unauthorized }}>
+    <AuthContext.Provider value={{ loginUser, logout, isLoggedIn, unauthorized, getUserInfo }}>
       {isReady ? children : null}
     </AuthContext.Provider>
   );

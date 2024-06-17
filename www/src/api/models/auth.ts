@@ -3,7 +3,7 @@ type UserAccessToken = {
   token_type: string;
 };
 
-type UserProfileVerify = {
+type UserInfo = {
   id: number;
   email: string;
   is_active: boolean;

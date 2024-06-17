@@ -8,15 +8,20 @@
 } */
 
 .header_img {
-  width: 95px;
-  height: auto;
-  margin-top: 0.6rem;
+  /* width: 95px;
+  height: auto; */
+  margin-top: 1.5rem;
 }
 
 .navbar-brand {
-  border-bottom: 1px solid #4d4d4d;
-  height: 55px;
+  border-bottom: 1px solid #6b72801a;
+  border-right: 1px solid #6b72801a;
+  height: 85px;
   background-color: #171d25;
+}
+
+.navbar-brand:hover {
+  background-color: #161b20;
 }
 
 /* .sidebar_brand:hover {
@@ -38,6 +43,7 @@
     right 0.35s ease-in-out;
   direction: ltr;
   background: #222e3c;
+  /* background: rgb(17 24 39); */
   margin-left: 0px;
 }
 
