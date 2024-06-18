@@ -3,6 +3,7 @@ from typing import List
 
 import fastapi
 from fastapi import APIRouter, Depends, HTTPException
+from pydantic import parse_obj_as
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -45,5 +46,6 @@ async def get_objects(session: AsyncSession = Depends(get_async_session),
                       user: User = Depends(current_active_user)):
     if user.is_superuser is False:
         raise HTTPException(status_code=fastapi.status.HTTP_403_FORBIDDEN)
-    # return (await session.execute(select(Object))).all()
-    return [ObjectResponse(id=1, name='Сбербанк'), ObjectResponse(id=2, name='МТС')]
+
+    return [ObjectResponse.model_validate(row, from_attributes=True)
+            for row in (await session.execute(select(Object))).scalars().all()]

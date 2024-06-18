@@ -13,7 +13,6 @@
 }
 
 sidebar_header:hover {
-  /* color: #121213 !important; */
   --bs-nav-link-hover-color: var(#111);
 }
 
@@ -32,6 +31,10 @@ sidebar_header:hover {
   border-left-color: transparent;
 }
 
-/* .align_middle {
-  vertical-align: middle !important;
-} */
+.sidebar_spinner {
+  display: block !important;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5em;
+}

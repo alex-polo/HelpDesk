@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
-import { Button, Spinner } from 'react-bootstrap';
+import { Button, Container, Row, Spinner } from 'react-bootstrap';
 
 import style from './sidebarMenu.module.css';
 import { getObjectsAPI } from '../../services/ObjectusService';
@@ -19,7 +19,12 @@ export const SidebarMenu = (): ReactElement => {
   if (isLoading)
     return (
       <>
-        <Spinner animation="border" variant="primary" />
+        {/* <Spinner animation="border" className={style.sidebar_spinner} variant="primary" /> */}
+        <Spinner className={style.sidebar_spinner} animation="grow" variant="primary" />
+        <Spinner className={style.sidebar_spinner} animation="grow" variant="primary" />
+        <Spinner className={style.sidebar_spinner} animation="grow" variant="primary" />
+        <Spinner className={style.sidebar_spinner} animation="grow" variant="primary" />
+        <Spinner className={style.sidebar_spinner} animation="grow" variant="primary" />
       </>
     );
 
@@ -51,14 +56,7 @@ export const SidebarMenu = (): ReactElement => {
 
       <ul className={style.sidebar_nav}>
         <li className={style.sidebar_header}>Настройки</li>
-
-        <li className="active">
-          <a className={style.sidebar_link}>
-            <span>Сбербанк</span>
-          </a>
-        </li>
-
-        <li className="sidebar-item">
+        <li className={style.sidebar_link}>
           <a className="sidebar-link" href="pages-profile.html">
             <span className="align-middle">Profile</span>
           </a>
