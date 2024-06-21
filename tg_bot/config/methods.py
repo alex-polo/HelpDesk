@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv
 
-from .classes import ApiCredentials, BotConfig, Endpoints
+from .classes import ApiCredentials, BotConfig, Endpoints, BotChannel
 from .endpoints import login_url, logout_url, tg_user_role_url, tg_user_appeal_params_url
 
 
@@ -32,3 +32,9 @@ def get_endpoints_config() -> Endpoints:
         tg_user_appeal_params=f'{base_url}/{tg_user_appeal_params_url}',
     )
 
+
+def get_channel_id_config() -> BotChannel:
+    load_dotenv()
+    return BotChannel(
+        channel_id=os.getenv('CHANNEL_ID')
+    )

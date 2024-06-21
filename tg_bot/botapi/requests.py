@@ -1,11 +1,10 @@
-import asyncio
 import json
 
 from aiogram.client.session import aiohttp
 from aiohttp.web_exceptions import HTTPUnauthorized
 
-import params
-from botapi import need_login
+from botapi import params
+from botapi.login import need_login
 
 
 @need_login
@@ -43,11 +42,3 @@ async def get_tg_user_appeal_params(tg_id: int = 0) -> str:
                 return user_appeal
             else:
                 raise Exception('User Appeal is None in response server')
-
-
-async def main():
-    print(await get_tg_user_appeal_params())
-
-
-if __name__ == '__main__':
-    asyncio.run(main())

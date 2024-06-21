@@ -1,7 +1,7 @@
 import aiohttp
 from aiohttp.web_exceptions import HTTPUnauthorized
 
-import params
+from botapi import params
 
 
 async def bot_login() -> str:
