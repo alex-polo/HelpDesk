@@ -4,7 +4,7 @@ const RoutesComponents = {
     logout: '/logout',
   },
   USER_PROFILE: {
-    home: '/',
+    home: '/*',
     upload_file: '/upload-file',
   },
   ADMIN_PROFILE: {

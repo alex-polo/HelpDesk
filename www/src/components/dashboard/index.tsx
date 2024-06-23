@@ -4,6 +4,8 @@ import NavBar from '../navbar';
 import Sidebar from '../sidebar';
 import { useAuth } from '../../context/AuthProvider';
 import { Spinner } from 'react-bootstrap';
+import { DashboardLayout } from '../dashboardLayout';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import { MainContent } from '../mainContent';
 
 type Props = {};
@@ -15,16 +17,26 @@ export const Dashboard = (props: Props): ReactElement => {
   if (queryUserInfo.isLoading) {
     return (
       <>
-        <Spinner animation="grow" variant="primary" />
+        <div className="main">
+          <Spinner animation="grow" variant="primary" />
+          <Spinner animation="grow" variant="primary" />
+          <Spinner animation="grow" variant="primary" />
+        </div>
       </>
     );
   } else {
     return (
       <>
+        <Routes>
+          <Route path="main" element={<MainContent />} />
+        </Routes>
         <Sidebar />
         <div className="main">
           <NavBar username={queryUserInfo.isSuccess ? queryUserInfo.data?.email : 'undefined'} />
-          <MainContent />
+
+          <Outlet />
+          {/* <DashboardLayout /> */}
+          {/* <MainContent /> */}
         </div>
       </>
     );

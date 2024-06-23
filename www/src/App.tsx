@@ -9,11 +9,21 @@ import { LoginForm } from './components/loginForm';
 import { Dashboard } from './components/dashboard';
 import { ReactElement } from 'react';
 import { ToastContainer } from 'react-toastify';
+import { NotFound } from './components/notFound';
+
+// const router = createBrowserRouter(
+//   createRoutesFromElements(
+//     <>
+
+//     </>
+//   )
+// );
 
 function App(): ReactElement {
   return (
     <>
       <div className="wrapper">
+        {/* <RouterProvider router={router} /> */}
         <Routes>
           <Route path={AppRoutes.AUTH.login} element={<LoginForm />} />
           <Route
@@ -24,6 +34,7 @@ function App(): ReactElement {
               </ProtectedRoute>
             }
           />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
       <ToastContainer autoClose={7000} />

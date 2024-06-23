@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }: Props) => {
   const unauthorized = () => {
     localStorage.removeItem('userProfile');
     setUserProfile(null);
-    navigate(AppRoutes.AUTH.login);
+    // navigate(AppRoutes.AUTH.login);
   };
 
   const getToken = (): string => {

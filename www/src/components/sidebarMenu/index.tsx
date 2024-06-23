@@ -1,11 +1,13 @@
 import { ReactElement } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
-import { Button, Container, Row, Spinner } from 'react-bootstrap';
+import { Button, Spinner } from 'react-bootstrap';
 
 import style from './sidebarMenu.module.css';
 import { getObjectsAPI } from '../../services/ObjectusService';
 import { useAuth } from '../../context/AuthProvider';
+import { NavLink, Route, Routes } from 'react-router-dom';
+import { MainContent } from '../mainContent';
 
 export const SidebarMenu = (): ReactElement => {
   const { getToken } = useAuth();
@@ -19,9 +21,6 @@ export const SidebarMenu = (): ReactElement => {
   if (isLoading)
     return (
       <>
-        {/* <Spinner animation="border" className={style.sidebar_spinner} variant="primary" /> */}
-        <Spinner className={style.sidebar_spinner} animation="grow" variant="primary" />
-        <Spinner className={style.sidebar_spinner} animation="grow" variant="primary" />
         <Spinner className={style.sidebar_spinner} animation="grow" variant="primary" />
         <Spinner className={style.sidebar_spinner} animation="grow" variant="primary" />
         <Spinner className={style.sidebar_spinner} animation="grow" variant="primary" />
@@ -39,6 +38,10 @@ export const SidebarMenu = (): ReactElement => {
 
   return (
     <>
+      <NavLink to="main" className="active">
+        Messages
+      </NavLink>
+
       <ul className={style.sidebar_nav}>
         <li className={style.sidebar_header}>Мои объекты</li>
 
@@ -54,14 +57,14 @@ export const SidebarMenu = (): ReactElement => {
         </li>
       </ul>
 
-      <ul className={style.sidebar_nav}>
+      {/* <ul className={style.sidebar_nav}>
         <li className={style.sidebar_header}>Настройки</li>
         <li className={style.sidebar_link}>
           <a className="sidebar-link" href="pages-profile.html">
             <span className="align-middle">Profile</span>
           </a>
         </li>
-      </ul>
+      </ul> */}
     </>
   );
 };

@@ -47,6 +47,10 @@
   margin-left: 0px;
 }
 
+#sidebar a.active {
+  color: red;
+}
+
 .sidebar_hide {
   margin-left: -260px;
 }

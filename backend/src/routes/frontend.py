@@ -3,7 +3,6 @@ from typing import List
 
 import fastapi
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import parse_obj_as
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 

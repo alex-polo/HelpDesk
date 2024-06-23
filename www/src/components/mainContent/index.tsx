@@ -21,12 +21,12 @@ export const MainContent = (): ReactElement => {
               <Button variant="primary">Добавить объект</Button>
             </Card.Body>
           </Card>
-          {/* <Button className="btn btn-primary btn-sm">Primary</Button>
+          <Button className="btn btn-primary btn-sm">Primary</Button>
           <Button className="btn btn-secondary">Secondary</Button>
           <Button className="btn btn-success">Success</Button>
           <Button className="btn btn-danger">Danger</Button>
           <Button className="btn btn-warning">Warning</Button>
-          <Button className="btn btn-info btn-sm">Info</Button> */}
+          <Button className="btn btn-info btn-sm">Info</Button>
         </Container>
       </main>
     </>

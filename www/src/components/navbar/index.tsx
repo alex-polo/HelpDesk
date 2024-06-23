@@ -1,14 +1,16 @@
 import { Container, Form, Nav, NavDropdown, Navbar } from 'react-bootstrap';
 import { useAuth } from '../../context/AuthProvider';
-// import logout_img from '/images/logout.svg';
+import { Sling as Hamburger } from 'hamburger-react';
 
 import style from './navbar.module.css';
+import { useState } from 'react';
 
 type Props = {
   username: string;
 };
 
 function NavBar(props: Props) {
+  const [isOpen, setOpen] = useState(true);
   const { logout } = useAuth();
   function changeSidebar() {
     (document.getElementById('sidebar') as HTMLElement).classList.toggle('sidebar_hide');
@@ -18,8 +20,9 @@ function NavBar(props: Props) {
     <Navbar expand="lg" className="shadow">
       <Container fluid>
         <button id="sidebarCollapse" onClick={changeSidebar} className={style.toggler_button}>
-          <span className="navbar-toggler-icon"></span>
+          <Hamburger size={28} toggled={isOpen} toggle={setOpen} />
         </button>
+
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll></Nav>
