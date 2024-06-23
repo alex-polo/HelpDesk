@@ -5,7 +5,7 @@ from typing import Optional
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
 
-from bot.handlers import main_menu
+from bot.handlers import main_router, create_task_router
 from config import BotConfig
 
 storage = MemoryStorage()
@@ -14,9 +14,11 @@ BOT: Optional[Bot] = None
 DP: Optional[Dispatcher] = None
 
 
+
+
 def create_dispatcher() -> Dispatcher():
     disp = Dispatcher()
-    disp.include_routers(main_menu.router)
+    disp.include_routers(main_router, create_task_router)
     return disp
 
 

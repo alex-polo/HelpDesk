@@ -19,3 +19,8 @@ class ApiCredentials:
 @dataclass
 class BotConfig:
     token: str
+
+
+@dataclass
+class BotChannel:
+    channel_id: str
