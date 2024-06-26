@@ -14,8 +14,6 @@ BOT: Optional[Bot] = None
 DP: Optional[Dispatcher] = None
 
 
-
-
 def create_dispatcher() -> Dispatcher():
     disp = Dispatcher()
     disp.include_routers(main_router, create_task_router)
