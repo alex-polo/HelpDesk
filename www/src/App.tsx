@@ -2,13 +2,13 @@ import { Link, Route, RouterProvider, createBrowserRouter, createRoutesFromEleme
 import { MdOutlineCottage } from 'react-icons/md';
 import { DashboardLayout } from './layouts/DashbordLayout';
 import { RootLayout } from './layouts/RootLayout';
+import { QueryClientLayout } from './layouts/QueryClientLayout';
 import { NotFoundForm } from './components/NotFound';
 import { AuthLayout } from './layouts/AuthLayout';
 import { LoginForm } from './components/Auth';
 import ProtectedRoute from './routes/PrivateRouter';
 
 import './App.css';
-import { QueryClientLayout } from './layouts/QueryClientLayout';
 
 const router = createBrowserRouter(
   createRoutesFromElements(

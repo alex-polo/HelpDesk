@@ -1,6 +1,6 @@
 import { Breadcrumbs } from '../Breadcrumbs';
 
-export const DashboardMain = () => {
+export const DashboardContent = () => {
   return (
     <>
       <Breadcrumbs />

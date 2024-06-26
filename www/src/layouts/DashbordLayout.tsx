@@ -6,18 +6,17 @@ import { Spinner } from 'react-bootstrap';
 import { useAuth } from '../context/AuthProvider';
 import NavBar from '../components/NavBar';
 import Sidebar from '../components/Sidebar';
+import DashboardContent from '../components/DashboardMain';
 
 export const DashboardLayout = (): ReactElement => {
   const { getUserProfile } = useAuth();
-  const queryUserProfile = useQuery({ queryKey: ['userInfo'], queryFn: getUserProfile });
+  const queryUserProfile = useQuery({ queryKey: ['userProfile'], queryFn: getUserProfile });
   const outlet = useOutlet();
 
   if (queryUserProfile.isLoading) {
     return (
       <>
         <div className="main">
-          <Spinner animation="grow" variant="primary" />
-          <Spinner animation="grow" variant="primary" />
           <Spinner animation="grow" variant="primary" />
         </div>
       </>
@@ -38,8 +37,7 @@ export const DashboardLayout = (): ReactElement => {
       <div className="main">
         <NavBar username={queryUserProfile.isSuccess ? queryUserProfile.data?.email : 'undefined'} />
         {outlet}
-        {/* <DashboardLayout /> */}
-        {/* <MainContent /> */}
+        <DashboardContent />
       </div>
     </>
   );
