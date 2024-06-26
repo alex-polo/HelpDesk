@@ -2,19 +2,19 @@ import { ToastPosition, toast } from 'react-toastify';
 
 const position: ToastPosition = 'bottom-right';
 
-export const toastNotifycationError = (text: string) => {
+export const toastError = (text: string) => {
   toast.error(text, {
     position: position,
   });
 };
 
-export const toastNotifycationSuccess = (text: string) => {
+export const toastSuccess = (text: string) => {
   toast.success(text, {
     position: position,
   });
 };
 
-export const toastNotifycationInfo = (text: string) => {
+export const toastInfo = (text: string) => {
   toast.info(text, {
     position: position,
   });

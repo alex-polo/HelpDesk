@@ -1,15 +1,13 @@
-const RoutesComponents = {
+export const AppRoutes = {
   AUTH: {
     login: '/login',
     logout: '/logout',
   },
   USER_PROFILE: {
-    home: '/*',
+    home: '/',
     upload_file: '/upload-file',
   },
   ADMIN_PROFILE: {
     admin: '/admin',
   },
 };
-
-export default RoutesComponents;

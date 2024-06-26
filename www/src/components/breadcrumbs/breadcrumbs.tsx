@@ -1,52 +1,36 @@
-import { useEffect, useState } from 'react';
-import { useLocation, useMatches } from 'react-router-dom';
+import { useMatches } from 'react-router-dom';
+import { AgnosticIndexRouteObject } from '@remix-run/router';
+import { ReactElement } from 'react';
+import { Breadcrumb } from 'react-bootstrap';
 
-export const Breadcrumbs: React.FC = () => {
-  let matches = useMatches();
+export interface IndexRouteObject {
+  caseSensitive?: AgnosticIndexRouteObject['caseSensitive'];
+  pathname?: AgnosticIndexRouteObject['path'];
+  id?: AgnosticIndexRouteObject['id'];
+  loader?: AgnosticIndexRouteObject['loader'];
+  action?: AgnosticIndexRouteObject['action'];
+  hasErrorBoundary?: AgnosticIndexRouteObject['hasErrorBoundary'];
+  shouldRevalidate?: AgnosticIndexRouteObject['shouldRevalidate'];
+  handle?: AgnosticIndexRouteObject['handle'];
+  children?: undefined;
+  element?: React.ReactNode | null;
+  errorElement?: React.ReactNode | null;
+  data?: unknown;
+}
 
-  // let crumbs = matches
-  //   // first get rid of any matches that don't have handle and crumb
-  //   .filter((match) => Boolean(match.handle?.crumb))
-  //   // now map them into an array of elements, passing the loader
-  //   // data to each one
-  //   .map((match) => match.handle.crumb(match.data));
+export const Breadcrumbs = () => {
+  let matches: IndexRouteObject[] = useMatches();
+  let crumbs: ReactElement[] = matches
+    .filter((match) => Boolean(match.handle?.crumb))
+    .map((match: IndexRouteObject) => match.handle.crumb(match.data));
 
-  // return (
-  //   <ol>
-  //     {crumbs.map((crumb, index) => (
-  //       <li key={index}>{crumb}</li>
-  //     ))}
-  //   </ol>
-  // );
-  return <nav></nav>;
+  return (
+    <Breadcrumb>
+      {crumbs.map((crumb, index) => (
+        <li key={index} className="breadcrumb-item">
+          {crumb}
+        </li>
+      ))}
+    </Breadcrumb>
+  );
 };
-
-// export const Breadcrumbs: React.FC = () => {
-//   //   const { state } = useLocation<IBreadcrumbsLocationState[]>();
-//   const location = useLocation();
-//   const [crumbs, setCrumbs] = useState<string[]>([]);
-
-//   useEffect(() => {
-//     // Google Analytics
-//     // ga('send', 'pageview');
-//     // const crumbs = location.pathname
-//     //   .split('/')
-//     //   .filter((crumb) => crumb !== '')
-//     //   .map((crumb) => {
-//     //     console.log(`/${crumb}`);
-//     //   });
-//     setCrumbs(location.pathname.split('/').filter((crumb) => crumb !== ''));
-//   }, [location]);
-
-//   //   {
-//   //     crumbs?.map((crumb) => (
-//   //       <li key={crumb.id}>
-//   //         <a className={style.sidebar_link}>
-//   //           <span>{objectusObject.name}</span>
-//   //         </a>
-//   //       </li>
-//   //     ));
-//   //   }
-
-//   return <nav>{crumbs}</nav>;
-// };
