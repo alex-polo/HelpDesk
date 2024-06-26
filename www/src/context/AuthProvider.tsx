@@ -35,7 +35,9 @@ export const AuthProvider = ({ children }: Props) => {
     const userProfileLocalStorage = localStorage.getItem('userProfile');
 
     if (userProfileLocalStorage) {
-      setUserProfile(JSON.parse(userProfileLocalStorage));
+      const profile: UserProfile = JSON.parse(userProfileLocalStorage);
+      setUserProfile(profile);
+      axiosInstance.defaults.headers['Authorization'] = `Bearer ${profile.access_token}`;
     }
 
     setIsReady(true);
@@ -52,7 +54,6 @@ export const AuthProvider = ({ children }: Props) => {
       const profile: UserProfile = { email: loginUserData.email, access_token: data.access_token };
       localStorage.setItem('userProfile', JSON.stringify(profile));
       setUserProfile(profile);
-      axiosInstance.defaults.headers['Authorization'] = `Bearer ${userProfile?.access_token}`;
       navigate(AppRoutes.USER_PROFILE.home);
     } catch (error) {
       unauthorized();

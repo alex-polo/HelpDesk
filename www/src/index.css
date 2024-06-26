@@ -5,31 +5,43 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0 auto;
+  text-align: center;
 }
 
 body {
   margin: 0;
-  display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
 
 .wrapper {
+  background-color: #222e3c;
   display: flex;
   width: 100%;
   min-width: 0;
   min-height: 100vh;
   overflow: hidden;
+}
+
+.main {
+  background: #f9f9f9;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: 0;
+  overflow: hidden;
+  transition: margin-left 0.35s ease-in-out, left 0.35s ease-in-out, margin-right 0.35s ease-in-out,
+    right 0.35s ease-in-out;
+  width: 100%;
 }
 
 .btn {

@@ -11,17 +11,17 @@ type Props = {
 };
 
 export const NavBar = (props: Props) => {
-  const [isOpen, setOpen] = useState(true);
+  const [isOpen, setOpen] = useState(false);
   const { logout } = useAuth();
   function changeSidebar() {
     (document.getElementById('sidebar') as HTMLElement).classList.toggle('sidebar_hide');
   }
 
   return (
-    <Navbar expand="lg" className="shadow">
+    <Navbar expand="lg" className={style.navbar}>
       <Container fluid>
         <button id="sidebarCollapse" onClick={changeSidebar} className={style.toggler_button}>
-          <Hamburger size={28} toggled={isOpen} toggle={setOpen} />
+          <Hamburger size={25} toggled={isOpen} toggle={setOpen} />
         </button>
 
         <Navbar.Toggle aria-controls="navbarScroll" />
