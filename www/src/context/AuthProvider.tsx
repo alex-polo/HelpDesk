@@ -1,19 +1,27 @@
 import { createContext, useEffect, useState } from 'react';
-import { getUserProfileInfoAPI, loginAPI, logoutAPI } from '../services/AuthService';
+import {
+  IUserAccessToken,
+  IUserProfile,
+  IUserLoginData,
+  getProfileAPI,
+  loginAPI,
+  logoutAPI,
+} from '../services/AuthService';
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import AppRoutes from '../routes/AppRoutes';
 import axios from 'axios';
+import { AppRoutes } from '../routes/AppRoutes';
+import { UserProfile } from './AuthProvider.types';
+import axiosInstance from '../api/AxiosInstance';
 
 type Props = { children: React.ReactNode };
 
 type UserContextType = {
   logout: () => void;
   isLoggedIn: () => boolean;
-  loginUser: (loginUserData: UserLoginData) => Promise<void>;
-  getUserInfo: () => Promise<UserInfo>;
-  unauthorized: () => void;
-  getToken: () => string;
+  loginUser: (loginUserData: IUserLoginData) => Promise<void>;
+  getUserProfile: () => Promise<IUserProfile>;
 };
 
 const AuthContext = createContext<UserContextType>({} as UserContextType);
@@ -37,13 +45,14 @@ export const AuthProvider = ({ children }: Props) => {
     return userProfile != null ? true : false;
   };
 
-  const loginUser = async (loginUserData: UserLoginData): Promise<void> => {
+  const loginUser = async (loginUserData: IUserLoginData): Promise<void> => {
     unauthorized();
     try {
-      const data: UserAccessToken = (await loginAPI(loginUserData.email, loginUserData.password)).data;
+      const data: IUserAccessToken = (await loginAPI(loginUserData.email, loginUserData.password)).data;
       const profile: UserProfile = { email: loginUserData.email, access_token: data.access_token };
       localStorage.setItem('userProfile', JSON.stringify(profile));
       setUserProfile(profile);
+      axiosInstance.defaults.headers['Authorization'] = `Bearer ${userProfile?.access_token}`;
       navigate(AppRoutes.USER_PROFILE.home);
     } catch (error) {
       unauthorized();
@@ -51,10 +60,10 @@ export const AuthProvider = ({ children }: Props) => {
     }
   };
 
-  const getUserInfo = async (): Promise<UserInfo> => {
+  const getUserProfile = async (): Promise<IUserProfile> => {
     if (userProfile != null) {
       try {
-        return (await getUserProfileInfoAPI(userProfile?.access_token)).data;
+        return (await getProfileAPI()).data;
       } catch (error) {
         if (axios.isAxiosError(error)) {
           if (error.response?.status == 401) {
@@ -71,7 +80,7 @@ export const AuthProvider = ({ children }: Props) => {
 
   const logout = () => {
     if (userProfile != null) {
-      logoutAPI(userProfile.access_token);
+      logoutAPI();
     }
     unauthorized();
   };
@@ -79,32 +88,21 @@ export const AuthProvider = ({ children }: Props) => {
   const unauthorized = () => {
     localStorage.removeItem('userProfile');
     setUserProfile(null);
-    // navigate(AppRoutes.AUTH.login);
+    navigate(AppRoutes.AUTH.login);
   };
 
-  const getToken = (): string => {
-    const valueProfile = localStorage.getItem('userProfile');
-    if (valueProfile != null) {
-      return JSON.parse(valueProfile).access_token;
-    } else {
-      unauthorized();
-      return '';
-    }
-    // if (userProfile == null) {
-    //   const valueProfile = localStorage.getItem('userProfile');
-    //   if (valueProfile != null) {
-    //     return JSON.parse(valueProfile).access_token;
-    //   } else {
-    //     unauthorized();
-    //     return '';
-    //   }
-    // } else {
-    //   return userProfile.access_token;
-    // }
-  };
+  // const getToken = (): string => {
+  //   const valueProfile = localStorage.getItem('userProfile');
+  //   if (valueProfile != null) {
+  //     return JSON.parse(valueProfile).access_token;
+  //   } else {
+  //     unauthorized();
+  //     return '';
+  //   }
+  // };
 
   return (
-    <AuthContext.Provider value={{ getToken, loginUser, logout, isLoggedIn, unauthorized, getUserInfo }}>
+    <AuthContext.Provider value={{ loginUser, logout, isLoggedIn, getUserProfile }}>
       {isReady ? children : null}
     </AuthContext.Provider>
   );

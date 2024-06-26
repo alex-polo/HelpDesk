@@ -1,9 +1,5 @@
 .toggler_button {
-  /* padding: var(--bs-navbar-toggler-padding-y) var(--bs-navbar-toggler-padding-x); */
-  /* font-size: var(--bs-navbar-toggler-font-size); */
-  /* line-height: 1; */
   color: var(--bs-navbar-color);
   background-color: transparent;
   border: 0px;
-  /* transition: var(--bs-navbar-toggler-transition); */
 }

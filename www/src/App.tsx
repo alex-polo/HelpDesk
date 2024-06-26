@@ -1,50 +1,49 @@
-// import { ReactElement, useState } from 'react';
-// import reactLogo from './assets/react.svg';
-// import viteLogo from '/vite.svg';
-import './App.css';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link, Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
+import { MdOutlineCottage } from 'react-icons/md';
+import { DashboardLayout } from './layouts/DashbordLayout';
+import { RootLayout } from './layouts/RootLayout';
+import { NotFoundForm } from './components/NotFound';
+import { AuthLayout } from './layouts/AuthLayout';
+import { LoginForm } from './components/Auth';
 import ProtectedRoute from './routes/PrivateRouter';
-import AppRoutes from './routes/AppRoutes';
-import { LoginForm } from './components/loginForm';
-import { Dashboard } from './components/dashboard';
-import { ReactElement } from 'react';
-import { ToastContainer } from 'react-toastify';
-import { NotFound } from './components/notFound';
 
-// const router = createBrowserRouter(
-//   createRoutesFromElements(
-//     <>
+import './App.css';
+import { QueryClientLayout } from './layouts/QueryClientLayout';
 
-//     </>
-//   )
-// );
-
-function App(): ReactElement {
-  return (
-    <>
-      <div className="wrapper">
-        {/* <RouterProvider router={router} /> */}
-        <Routes>
-          <Route path={AppRoutes.AUTH.login} element={<LoginForm />} />
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/*" element={<RootLayout />}>
+      <Route element={<QueryClientLayout />}>
+        <Route element={<AuthLayout />}>
           <Route
-            path={AppRoutes.USER_PROFILE.home}
+            index
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <DashboardLayout />
               </ProtectedRoute>
             }
             handle={{
-              // `crumb` is your own abstraction, we decided
-              // to make this one a function so we can pass
-              // the data from the loader to it so that our
-              // breadcrumb is made up of dynamic content
-              crumb: () => <Link to={AppRoutes.USER_PROFILE.home}>Домашняя</Link>,
+              crumb: () => (
+                <Link to="/">
+                  <MdOutlineCottage />
+                </Link>
+              ),
             }}
           />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </div>
-      <ToastContainer autoClose={7000} />
+        </Route>
+
+        <Route path="login" element={<LoginForm />} />
+      </Route>
+
+      <Route path="*" element={<NotFoundForm />} />
+    </Route>
+  )
+);
+
+function App() {
+  return (
+    <>
+      <RouterProvider router={router} />
     </>
   );
 }

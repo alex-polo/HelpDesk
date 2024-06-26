@@ -1,0 +1,14 @@
+.login_form {
+  position: absolute;
+  line-height: 2em;
+  top: 50%;
+  left: 50%;
+  width: 24em;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  box-sizing: border-box;
+  border-radius: 5px;
+  text-align: center !important;
+  box-shadow: var(--bs-box-shadow) !important;
+}

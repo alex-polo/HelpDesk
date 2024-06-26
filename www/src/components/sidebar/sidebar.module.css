@@ -1,15 +1,4 @@
-/* .sidebar_brand {
-  font-weight: 600;
-  font-size: 1.15rem;
-  padding: 1.15rem 1.5rem;
-  display: block;
-  color: #f8f9fa;
-  border-bottom: 1px solid #4d4d4d;
-} */
-
 .header_img {
-  /* width: 95px;
-  height: auto; */
   margin-top: 1.5rem;
 }
 
@@ -23,11 +12,6 @@
 .navbar-brand:hover {
   background-color: #161b20;
 }
-
-/* .sidebar_brand:hover {
-  cursor: pointer;
-  color: #d1d5d8;
-} */
 
 .sidebar_header {
   background: transparent;
@@ -43,7 +27,6 @@
     right 0.35s ease-in-out;
   direction: ltr;
   background: #222e3c;
-  /* background: rgb(17 24 39); */
   margin-left: 0px;
 }
 
