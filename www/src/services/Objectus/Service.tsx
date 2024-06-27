@@ -11,9 +11,8 @@ export const getTgUsersAPI = async (token: string): Promise<AxiosResponse<IObjec
   });
 };
 
-export const getObjectsAPI = async (): Promise<IObjectusObject[]> => {
-  const { data } = await axiosInstance.get<IObjectusObject[]>(Endpoints.OBJECTUS.get_objects);
-  return data;
+export const getObjectsAPI = async (): Promise<AxiosResponse<IObjectusObject[]>> => {
+  return await axiosInstance.get<IObjectusObject[]>(Endpoints.OBJECTUS.get_objects);
 };
 
 export const createObjectAPI = async (login: string, password: string): Promise<boolean> => {

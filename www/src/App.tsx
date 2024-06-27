@@ -9,14 +9,15 @@ import { LoginForm } from './components/Auth';
 import ProtectedRoute from './routes/PrivateRouter';
 
 import './App.css';
+import DashboardContent from './components/DashboardContent';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/*" element={<RootLayout />}>
-      <Route element={<QueryClientLayout />}>
+    <Route element={<QueryClientLayout />}>
+      <Route path="/" element={<RootLayout />}>
         <Route element={<AuthLayout />}>
           <Route
-            index
+            path="profile"
             element={
               <ProtectedRoute>
                 <DashboardLayout />
@@ -24,12 +25,15 @@ const router = createBrowserRouter(
             }
             handle={{
               crumb: () => (
-                <Link to="/">
+                <Link to="/profile">
                   <MdOutlineCottage />
                 </Link>
               ),
             }}
-          />
+          >
+            <Route index element={<DashboardContent />} />
+            <Route path="objects" element={<DashboardContent />} />
+          </Route>
         </Route>
 
         <Route path="login" element={<LoginForm />} />

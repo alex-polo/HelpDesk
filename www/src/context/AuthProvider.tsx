@@ -38,6 +38,9 @@ export const AuthProvider = ({ children }: Props) => {
       const profile: UserProfile = JSON.parse(userProfileLocalStorage);
       setUserProfile(profile);
       axiosInstance.defaults.headers['Authorization'] = `Bearer ${profile.access_token}`;
+    } else {
+      setUserProfile(null);
+      axiosInstance.defaults.headers['Authorization'] = '';
     }
 
     setIsReady(true);
@@ -53,7 +56,6 @@ export const AuthProvider = ({ children }: Props) => {
       const data: IUserAccessToken = (await loginAPI(loginUserData.email, loginUserData.password)).data;
       const profile: UserProfile = { email: loginUserData.email, access_token: data.access_token };
       localStorage.setItem('userProfile', JSON.stringify(profile));
-      setUserProfile(profile);
       navigate(AppRoutes.USER_PROFILE.home);
     } catch (error) {
       unauthorized();
@@ -91,16 +93,6 @@ export const AuthProvider = ({ children }: Props) => {
     setUserProfile(null);
     navigate(AppRoutes.AUTH.login);
   };
-
-  // const getToken = (): string => {
-  //   const valueProfile = localStorage.getItem('userProfile');
-  //   if (valueProfile != null) {
-  //     return JSON.parse(valueProfile).access_token;
-  //   } else {
-  //     unauthorized();
-  //     return '';
-  //   }
-  // };
 
   return (
     <AuthContext.Provider value={{ loginUser, logout, isLoggedIn, getUserProfile }}>

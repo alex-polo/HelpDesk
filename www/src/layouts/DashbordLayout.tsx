@@ -6,7 +6,6 @@ import { Spinner } from 'react-bootstrap';
 import { useAuth } from '../context/AuthProvider';
 import NavBar from '../components/NavBar';
 import Sidebar from '../components/Sidebar';
-import DashboardContent from '../components/DashboardMain';
 
 export const DashboardLayout = (): ReactElement => {
   const { getUserProfile } = useAuth();
@@ -27,6 +26,7 @@ export const DashboardLayout = (): ReactElement => {
     return (
       <>
         <h1>Internal error</h1>
+        console.log(queryUserProfile.error)
       </>
     );
   }
@@ -37,7 +37,6 @@ export const DashboardLayout = (): ReactElement => {
       <div className="main">
         <NavBar username={queryUserProfile.isSuccess ? queryUserProfile.data?.email : 'undefined'} />
         {outlet}
-        <DashboardContent />
       </div>
     </>
   );
