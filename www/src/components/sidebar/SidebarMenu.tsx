@@ -8,21 +8,15 @@ import style from './Sidebar.module.css';
 export const SidebarMenu = () => {
   const { isLoading, isError, data } = useGetObjects();
 
-  if (isLoading)
-    return (
-      <>
-        <Spinner className={style.sidebar_spinner} animation="grow" variant="primary" />
-      </>
-    );
+  if (isLoading) <Spinner className={style.sidebar_spinner} animation="grow" variant="primary" />;
 
   if (isError)
     return (
-      <>
-        <ul className={style.sidebar_nav}>
-          <li className={style.sidebar_header}>Не удалось получить данные от сервера</li>
-        </ul>
-      </>
+      <ul className={style.sidebar_nav}>
+        <li className={style.sidebar_header}>Не удалось получить данные от сервера</li>
+      </ul>
     );
+
   return (
     <>
       <ul className={style.sidebar_nav}>
@@ -38,12 +32,13 @@ export const SidebarMenu = () => {
         </li>
       </ul>
       <ul className={style.sidebar_nav}>
-        <li className={style.sidebar_header}>Настройки</li>
-        <li className={style.sidebar_link}>
+        <li className={style.sidebar_header}>Заявки</li>
+        <NavLink to="main">Мои завки</NavLink>
+        {/* <li className={style.sidebar_link}>
           <a className="sidebar-link" href="pages-profile.html">
             <span className="align-middle">Profile</span>
           </a>
-        </li>
+        </li> */}
       </ul>
       ;
     </>

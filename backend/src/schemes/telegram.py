@@ -23,7 +23,17 @@ class TgAppealRequest(BaseModel):
 
 class TgAppealChannelTaskIDRequest(BaseModel):
     task_id: str
-    chanel_post_id: str
+    chanel_post_id: int
+
+
+class TgCloseAppealRequest(BaseModel):
+    tg_id: int
+    task_id: str
+
+
+class TgAppealsRequest(BaseModel):
+    tg_id: int
+    status: str
 
 
 class TgAppealCreateTaskIDResponse(BaseModel):
@@ -39,5 +49,17 @@ class TgAppealParamsResponse(BaseModel):
     priority: List[str]
 
 
+class TgContactsResponse(BaseModel):
+    name: str
+    phone: str
+    role: str
+
+
 class TgUserRoleResponse(BaseModel):
     role: str
+
+
+class TgAppealsResponse(BaseModel):
+    task_id: str
+    chanel_post_id: int
+    priority: str

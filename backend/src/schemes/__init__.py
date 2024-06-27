@@ -3,6 +3,10 @@ from .telegram import (TgUserRoleResponse,
                        TgAppealParamsResponse,
                        TgAppealRequest,
                        TgAppealChannelTaskIDRequest,
-                       TgAppealCreateTaskIDResponse)
+                       TgAppealCreateTaskIDResponse,
+                       TgContactsResponse,
+                       TgCloseAppealRequest,
+                       TgAppealsRequest,
+                       TgAppealsResponse)
 
 from .frontend import TGUserResponseModel, QueryValue, ObjectResponse

@@ -1,4 +1,5 @@
 import logging
+from typing import List
 
 import fastapi
 from fastapi import APIRouter, Depends, UploadFile
@@ -7,8 +8,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.auth.manager import current_active_user
 from src.database import get_async_session
 from src.models import User
-from src.schemes import TgUserRequest, TgUserRoleResponse, TgAppealParamsResponse, TgAppealRequest, \
-    TgAppealChannelTaskIDRequest, TgAppealCreateTaskIDResponse
+from src.schemes import (TgUserRequest,
+                         TgUserRoleResponse,
+                         TgAppealParamsResponse,
+                         TgAppealRequest,
+                         TgAppealChannelTaskIDRequest,
+                         TgAppealCreateTaskIDResponse, TgContactsResponse, TgCloseAppealRequest, TgAppealsRequest,
+                         TgAppealsResponse)
 
 logger = logging.getLogger(__name__)
 
@@ -58,3 +64,41 @@ async def tg_update_appeal_chanel_post_id(request: TgAppealChannelTaskIDRequest,
                                           session: AsyncSession = Depends(get_async_session),
                                           user: User = Depends(current_active_user)):
     pass
+
+
+@telegram_router.post("/tg-close-appeal",
+                      status_code=fastapi.status.HTTP_202_ACCEPTED)
+async def tg_close_appeal(request: TgCloseAppealRequest,
+                          session: AsyncSession = Depends(get_async_session),
+                          user: User = Depends(current_active_user)):
+    pass
+
+
+@telegram_router.post("/tg-get-appeals",
+                      status_code=fastapi.status.HTTP_200_OK,
+                      response_model=List[TgAppealsResponse])
+async def tg_get_appeals(request: TgAppealsRequest,
+                         session: AsyncSession = Depends(get_async_session),
+                         user: User = Depends(current_active_user)):
+    return [TgAppealsResponse(
+        task_id='task_1',
+        chanel_post_id=1,
+        priority='критичный'
+    ), ]
+
+
+@telegram_router.get("/contacts",
+                     status_code=fastapi.status.HTTP_200_OK,
+                     response_model=List[TgContactsResponse])
+async def contacts(request: TgUserRequest,
+                   session: AsyncSession = Depends(get_async_session),
+                   user: User = Depends(current_active_user)):
+    return [TgContactsResponse(
+        name='Антониан',
+        phone='9117890510',
+        role='Инженер'
+    ), TgContactsResponse(
+        name='Евкурий',
+        phone='9117890511',
+        role='Техник'
+    )]
