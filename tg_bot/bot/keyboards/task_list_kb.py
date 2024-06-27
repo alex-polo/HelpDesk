@@ -4,28 +4,35 @@ from aiogram.filters.callback_data import CallbackData
 from aiogram.types import InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
+from botapi import get_appeals
+
 
 class CallbackTaskListClass(CallbackData, prefix='task_list'):
-    numb: str
-    status: str
-    post_id: int
+    task_id: str
+    chanel_post_id: int
+    priority: str
 
 
-async def get_task_list():
-    pass
+class CallbackAppealMenuClass(CallbackData, prefix='appeal_menu'):
+    tg_id: int
+    task_id: str
 
 
-async def get_task_list_kb():
+async def get_task_list_kb(tg_id: int, status: str):
     task_list_kb = InlineKeyboardBuilder()
-    # task_list = await get_task_list()
-    taskl = """[{"numb": "1", "status": "Просрочена", "post_id": 11}, 
-                {"numb": "2", "status": "Срочная", "post_id": 11}]"""
-    task_list = json.loads(taskl)
+    task_list = await get_appeals(tg_id, status)
     for task in task_list:
         task_list_kb.add(InlineKeyboardButton(
-            text=f"Заявка №: {task["numb"]} Статус: {task["status"]}",
+            text=f"Заявка №: {task["task_id"]} Статус: {task["priority"]}",
             callback_data=CallbackTaskListClass(
-                numb=task["numb"], status=task["status"], post_id=task["post_id"]).pack()
+                task_id=task["task_id"], chanel_post_id=task["chanel_post_id"], priority=task["priority"]).pack()
             )
         )
+    return task_list_kb.adjust(1).as_markup()
+
+
+async def get_task_menu_kb(tg_id: int, task_id: str):
+    task_list_kb = InlineKeyboardBuilder()
+    task_list_kb.add(InlineKeyboardButton(text=f"Закрыть обращение",
+                                          callback_data=CallbackAppealMenuClass(tg_id=tg_id, task_id=task_id).pack()))
     return task_list_kb.adjust(1).as_markup()

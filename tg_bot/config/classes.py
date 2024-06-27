@@ -8,6 +8,14 @@ class Endpoints:
     logout: str
     tg_user_role: str
     tg_user_appeal_params: str
+    tg_create_appeal: str
+    tg_update_appeal_chanel_post_id: str
+    contacts: str
+    tg_get_appeals: str
+    tg_close_appeal: str
+
+
+
 
 
 @dataclass
