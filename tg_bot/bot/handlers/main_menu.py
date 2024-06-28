@@ -2,6 +2,8 @@ import os
 
 from aiogram import Router, F, types
 from aiogram.filters import CommandStart
+from aiogram.fsm import state
+from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, message
 from dotenv import load_dotenv
 
@@ -18,12 +20,14 @@ chanel_id = os.getenv('CHANNEL_ID')
 
 @router.message(F.text == "Главное меню")
 @router.message(CommandStart())
-async def cmd_start(message: Message):
+async def cmd_start(message: Message, state: FSMContext):
     data = await get_tg_user_role(message.from_user.id)
+    await state.clear()
     if data is not None:
         await message.answer(text=f"Добро пожаловать {data}", reply_markup=main_menu_kb.get_main_menu_kb())
     else:
         await message.answer(text=f"Пожалуйста, сообщите ваш id администратору. Ваш id:{message.from_user.id}")
+
 
 
 @router.message(F.text == "Открытые заявки")

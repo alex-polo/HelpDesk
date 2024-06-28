@@ -18,6 +18,7 @@ origins = [
     "https://developer.host",
     "http://localhost:5173",
     "https://localhost:5173",
+    "https://gunkonk.ru"
 ]
 
 

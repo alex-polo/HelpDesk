@@ -303,8 +303,9 @@ async def post_task(message: Message, state: FSMContext):
                                             incident=user_data['incident'],
                                             priority=user_data['priority'],
                                             comment=user_data['comment'])
-    await message.bot.download(message.photo[-1], destination=path)
-    await add_photo(file=path)
+    # await message.bot.download(message.photo[-1], destination=path)
+    # await message.answer(text=path)
+    # await add_photo(file=path)
     channel_post_id = await message.bot.send_photo(chat_id=chanel_id,
                                                    caption=f"Номер заявки: {user_props.task_id}\n"
                                                            f"#Дата_{dt.strftime('%d_%m_%Y %H:%M')}\n"
@@ -320,7 +321,7 @@ async def post_task(message: Message, state: FSMContext):
     await post_tg_update_appeal_chanel_post_id(task_id=post_resp['task_id'],
                                                channel_post_id=channel_post_id.message_id)
     await message.answer(text=f"Задача: {post_resp['task_id']} создана.")
-    await os.remove(path=path)
+    # await os.remove(path=path)
     users_list = post_resp['user_list']
     for user in users_list:
         await message.bot.forward_message(chat_id=user,

@@ -59,7 +59,7 @@ async def tg_create_appeal(request: TgAppealRequest,
 
 
 @telegram_router.post("/tg-appeal-add-photo",
-                      status_code=fastapi.status.HTTP_201_CREATED)
+                      status_code=fastapi.status.HTTP_200_OK)
 async def tg_appeal_add_photo(file: UploadFile,
                               session: AsyncSession = Depends(get_async_session),
                               user: User = Depends(current_active_user)):

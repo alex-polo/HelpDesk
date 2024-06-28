@@ -156,19 +156,20 @@ async def close_appeal(tg_id: int, task_id: str):
 async def add_photo(file):
     async with aiohttp.ClientSession() as session:
         data = aiohttp.FormData()
-        data.add_field('file',
-                       open(file, 'rb'),
-                       filename=file,
-                       content_type="image/png")
-        headers = {'content-type': 'multipart/form-data',
-                   'accept': 'application/json',
-                   "authorization": f"Bearer {params.TOKEN}"}
-        async with session.post(url=params.ENDPOINTS.tg_appeal_add_photo,
-                                data=data,
-                                headers=headers) as resp:
-            if resp.status == 401:
-                raise HTTPUnauthorized()
-            if resp.status == 201:
-                pass
-            else:
-                raise Exception('User Appeal is None in response server')
+        with open(file, 'rb') as f:
+            data.add_field('file',
+                           f,
+                           filename=os.path.basename(file),
+                           content_type="image/png")
+            headers = {'content-type': 'multipart/form-data',
+                       'accept': 'application/json',
+                       "authorization": f"Bearer {params.TOKEN}"}
+            async with session.post(url=params.ENDPOINTS.tg_appeal_add_photo,
+                                    data=data,
+                                    headers=headers) as resp:
+                if resp.status == 401:
+                    raise HTTPUnauthorized()
+                if resp.status == 201:
+                    pass
+                else:
+                    raise Exception('User Appeal is None in response server')
