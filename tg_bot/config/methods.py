@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from .classes import ApiCredentials, BotConfig, Endpoints, BotChannel
 from .endpoints import (login_url, logout_url, tg_user_role_url,
                         tg_user_appeal_params_url, tg_create_appeal_url, contacts_url, tg_get_appeals_url,
-                        tg_update_appeal_chanel_post_id_url, tg_close_appeal_url)
+                        tg_update_appeal_chanel_post_id_url, tg_close_appeal_url, tg_appeal_add_photo_url)
 
 
 def get_api_credentials() -> ApiCredentials:
@@ -36,7 +36,8 @@ def get_endpoints_config() -> Endpoints:
         tg_update_appeal_chanel_post_id=f'{base_url}/{tg_update_appeal_chanel_post_id_url}',
         contacts=f'{base_url}/{contacts_url}',
         tg_get_appeals=f'{base_url}/{tg_get_appeals_url}',
-        tg_close_appeal=f'{base_url}/{tg_close_appeal_url}'
+        tg_close_appeal=f'{base_url}/{tg_close_appeal_url}',
+        tg_appeal_add_photo=f'{base_url}/{tg_appeal_add_photo_url}'
     )
 
 

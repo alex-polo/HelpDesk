@@ -54,23 +54,21 @@ async def post_tg_create_appeal(time: datetime,
                                 room: str,
                                 incident: str,
                                 priority: str,
-                                comment: str,
-                                data) -> str:
+                                comment: str) -> str:
     async with aiohttp.ClientSession() as session:
-        headers = {'content-type': 'multipart/form-data',
+        headers = {'content-type': 'application/json',
                    'accept': 'application/json',
                    "authorization": f"Bearer {params.TOKEN}"}
         async with session.post(url=params.ENDPOINTS.tg_create_appeal,
-                                data={'request': {"timedelta": time,
-                                                  "object": object,
-                                                  "subject": subject,
-                                                  "system": system,
-                                                  "flour": flour,
-                                                  "room": room,
-                                                  "incident": incident,
-                                                  "priority": priority,
-                                                  "comment": comment},
-                                      'file': open(f'{data}', 'rb')},
+                                data=json.dumps({"timedelta": time,
+                                      "object": object,
+                                      "subject": subject,
+                                      "system": system,
+                                      "flour": flour,
+                                      "room": room,
+                                      "incident": incident,
+                                      "priority": priority,
+                                      "comment": comment}),
                                 headers=headers) as resp:
             if resp.status == 401:
                 raise HTTPUnauthorized()
@@ -82,14 +80,14 @@ async def post_tg_create_appeal(time: datetime,
 
 
 @need_login
-async def post_tg_update_appeal_chanel_post_id(task_id: str, post_id: str) -> str:
+async def post_tg_update_appeal_chanel_post_id(task_id: str, channel_post_id: int) -> str:
     async with aiohttp.ClientSession() as session:
         headers = {'content-type': 'application/json',
                    'accept': 'application/json',
                    "authorization": f"Bearer {params.TOKEN}"}
-        async with session.post(url=params.ENDPOINTS.tg_user_appeal_params,
+        async with session.post(url=params.ENDPOINTS.tg_update_appeal_chanel_post_id,
                                 data=json.dumps({'tg_id': task_id,
-                                                 'chanel_post_id': post_id}),
+                                                 'chanel_post_id': channel_post_id}),
                                 headers=headers) as resp:
             if resp.status == 401:
                 raise HTTPUnauthorized()
@@ -107,8 +105,8 @@ async def get_contacts(tg_id: int) -> str:
                    'accept': 'application/json',
                    "authorization": f"Bearer {params.TOKEN}"}
         async with session.get(url=params.ENDPOINTS.contacts,
-                                data=json.dumps({'tg_id': tg_id}),
-                                headers=headers) as resp:
+                               data=json.dumps({'tg_id': tg_id}),
+                               headers=headers) as resp:
             if resp.status == 401:
                 raise HTTPUnauthorized()
             contacts: str = (await resp.json())
@@ -137,7 +135,7 @@ async def get_appeals(tg_id: int, status: str) -> str:
 
 
 @need_login
-async def close_appeal(tg_id: int, task_id: str) -> str:
+async def close_appeal(tg_id: int, task_id: str):
     async with aiohttp.ClientSession() as session:
         headers = {'content-type': 'application/json',
                    'accept': 'application/json',
@@ -148,6 +146,24 @@ async def close_appeal(tg_id: int, task_id: str) -> str:
             if resp.status == 401:
                 raise HTTPUnauthorized()
             if resp.status == 202:
+                pass
+            else:
+                raise Exception('User Appeal is None in response server')
+
+
+@need_login
+async def add_photo(file: str):
+    async with aiohttp.ClientSession() as session:
+        headers = {'content-type': 'multipart/form-data',
+                   'accept': 'application/json',
+                   "authorization": f"Bearer {params.TOKEN}"}
+        data = aiohttp.FormData()
+        async with session.post(url=params.ENDPOINTS.tg_appeal_add_photo,
+                                data={'file': open(f'{file}', 'rb')},
+                                headers=headers) as resp:
+            if resp.status == 401:
+                raise HTTPUnauthorized()
+            if resp.status == 201:
                 pass
             else:
                 raise Exception('User Appeal is None in response server')

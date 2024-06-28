@@ -13,9 +13,7 @@ class Endpoints:
     contacts: str
     tg_get_appeals: str
     tg_close_appeal: str
-
-
-
+    tg_appeal_add_photo: str
 
 
 @dataclass

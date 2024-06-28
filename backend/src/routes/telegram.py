@@ -38,7 +38,7 @@ async def tg_user_appeal_params(tg_user_request: TgUserRequest,
                                 session: AsyncSession = Depends(get_async_session),
                                 user: User = Depends(current_active_user)):
     return TgAppealParamsResponse(
-        object=["СберТауэр"],
+        object=["СберСити"],
         subject=["А", "Б", "Г", "Е", "Стилобат"],
         system=["СПС", "СПА", "СОУЭ", "СКУД"],
         incident=["Сработка", "Неисправность"],
@@ -53,7 +53,8 @@ async def tg_create_appeal(request: TgAppealRequest,
                            session: AsyncSession = Depends(get_async_session),
                            user: User = Depends(current_active_user)):
     return TgAppealCreateTaskIDResponse(
-        task_id='TASK123456'
+        task_id='TASK123456',
+        user_list=[1344084119, 186208978, 223663162]
     )
 
 

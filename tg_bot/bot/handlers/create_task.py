@@ -12,6 +12,7 @@ from bot.filters.verify_f import VerifyUser, user_id
 from bot.keyboards import (get_object_kb, get_photo_kb, get_subject_kb, get_priority_kb, get_incident_kb, get_system_kb,
                            Props, get_flor_kb, backbutton, backbutton_kb, main_menu_kb)
 from botapi import get_tg_user_role, get_tg_user_appeal_params, post_tg_create_appeal
+from botapi.requests import post_tg_update_appeal_chanel_post_id, add_photo
 
 router = Router()
 
@@ -123,7 +124,7 @@ async def get_flor(message: Message, state: FSMContext):
     await message.answer(text=f"Объект: #{user_data['object']}\n"
                               f"Субъект: #{user_data['subject']}\n"
                               f"Система: #{user_data['system']}\n"
-                              f"Этаж: #Э_{user_data['flor']}\n\n"
+                              f"#Этаж_{user_data['flor']}\n\n"
                               f"Уточните местоположение/укажите помещение", reply_markup=get_flor_kb())
     await state.set_state(NewTask.room)
 
@@ -136,11 +137,17 @@ async def get_flor(message: Message, state: FSMContext):
     else:
         await state.update_data(room=message.text)
     user_data = await state.get_data()
+    room_index: str = ""
+    if user_data['room'] != "Весь этаж":
+        room_index = "#Помещение_"
+        return room_index
+    else:
+        pass
     await message.answer(text=f"Объект: #{user_data['object']}\n"
                               f"Субъект: #{user_data['subject']}\n"
                               f"Система: #{user_data['system']}\n"
-                              f"Этаж: #Э_{user_data['flor']}\n"
-                              f"Помещение: #Пом_{user_data['room']}\n\n"
+                              f"#Этаж_{user_data['flor']}\n"
+                              f"{room_index}{user_data['room']}\n\n"
                               f"Выберите тип события", reply_markup=await get_incident_kb(user_data['userprops']))
     await state.set_state(NewTask.incident)
 
@@ -158,11 +165,17 @@ async def get_flor(message: Message, state: FSMContext):
     else:
         await state.update_data(incident=message.text)
     user_data = await state.get_data()
+    room_index: str = ""
+    if user_data['room'] != "Весь этаж":
+        room_index = "#Помещение_"
+        return room_index
+    else:
+        pass
     await message.answer(text=f"Объект: #{user_data['object']}\n"
                               f"Субъект: #{user_data['subject']}\n"
                               f"Система: #{user_data['system']}\n"
-                              f"Этаж: #Э_{user_data['flor']}\n"
-                              f"Помещение: #Пом_{user_data['room']}\n"
+                              f"#Этаж_{user_data['flor']}\n"
+                              f"{room_index}{user_data['room']}\n"
                               f"Инцидент: #{user_data['incident']}\n\n"
                               f"Выберите приоритет", reply_markup=await get_priority_kb(user_data['userprops']))
     await state.set_state(NewTask.priority)
@@ -181,11 +194,17 @@ async def get_flor(message: Message, state: FSMContext):
     else:
         await state.update_data(priority=message.text)
     user_data = await state.get_data()
+    room_index: str = ""
+    if user_data['room'] != "Весь этаж":
+        room_index = "#Помещение_"
+        return room_index
+    else:
+        pass
     await message.answer(text=f"Объект: #{user_data['object']}\n"
                               f"Субъект: #{user_data['subject']}\n"
                               f"Система: #{user_data['system']}\n"
-                              f"Этаж: #Э_{user_data['flor']}\n"
-                              f"Помещение: #Пом_{user_data['room']}\n"
+                              f"#Этаж_{user_data['flor']}\n"
+                              f"{room_index}{user_data['room']}\n"
                               f"Инцидент: #{user_data['incident']}\n"
                               f"Приоритет: #{user_data['priority']}\n\n"
                               f"Введите комментарий", reply_markup=backbutton_kb())
@@ -200,11 +219,17 @@ async def get_flor(message: Message, state: FSMContext):
     else:
         await state.update_data(comment=message.text)
     user_data = await state.get_data()
+    room_index: str = ""
+    if user_data['room'] != "Весь этаж":
+        room_index = "#Помещение_"
+        return room_index
+    else:
+        pass
     await message.answer(text=f"Объект: #{user_data['object']}\n"
                               f"Субъект: #{user_data['subject']}\n"
                               f"Система: #{user_data['system']}\n"
-                              f"Этаж: #Э_{user_data['flor']}\n"
-                              f"Помещение: #Пом_{user_data['room']}\n"
+                              f"#Этаж_{user_data['flor']}\n"
+                              f"{room_index}{user_data['room']}\n"
                               f"Инцидент: #{user_data['incident']}\n"
                               f"Приоритет: #{user_data['priority']}\n"
                               f"Комментарий: {user_data['comment']}\n\n"
@@ -215,9 +240,14 @@ async def get_flor(message: Message, state: FSMContext):
 @router.message(F.text == "Продолжить без фотографии", StateFilter(NewTask.photo))
 async def post_task(message: Message, state: FSMContext):
     user_data = await state.get_data()
-    user_props = user_data['userprops']
-    dt = datetime.datetime.now().strftime('%d_%m_%Y %H:%M')
-    post_resp = await post_tg_create_appeal(time=dt,
+    room_index: str = ""
+    if user_data['room'] != "Весь этаж":
+        room_index = "#Помещение_"
+        return room_index
+    else:
+        pass
+    dt = datetime.datetime.now()
+    post_resp = await post_tg_create_appeal(time=dt.timestamp(),
                                             object=user_data['object'],
                                             subject=user_data['subject'],
                                             system=user_data['system'],
@@ -225,23 +255,22 @@ async def post_task(message: Message, state: FSMContext):
                                             room=user_data['room'],
                                             incident=user_data['incident'],
                                             priority=user_data['priority'],
-                                            comment=user_data['comment'],
-                                            data=)
-    # posr_resp отдаёт спиок для рассылки и номер в таска
+                                            comment=user_data['comment'])
     channel_post_id = await message.bot.send_message(chat_id=chanel_id,
-                                                     text=f"Номер заявки: {user_props.task_id}\n"
-                                                          f"#{dt}\n"
+                                                     text=f"Номер заявки: {post_resp['task_id']}\n"
+                                                          f"#Дата_{dt.strftime('%d_%m_%Y %H:%M')}\n"
                                                           f"Объект: #{user_data['object']}\n"
                                                           f"Субъект: #{user_data['subject']}\n"
                                                           f"Система: #{user_data['system']}\n"
-                                                          f"Этаж: #Э_{user_data['flor']}\n"
-                                                          f"Помещение: #Пом_{user_data['room']}\n"
+                                                          f"#Этаж_{user_data['flor']}\n"
+                                                          f"{room_index}{user_data['room']}\n"
                                                           f"Инцидент: #{user_data['incident']}\n"
                                                           f"Приоритет: #{user_data['priority']}\n"
                                                           f"Комментарий: {user_data['comment']}\n")
-    await message.answer(text=f"Задача: {channel_post_id.message_id} создана.")
-    users_list = [1344084119, 186208978, 223663162]
-    users_list = [5175421239, 1344084119]
+    await post_tg_update_appeal_chanel_post_id(task_id=post_resp['task_id'],
+                                               channel_post_id=channel_post_id.message_id)
+    await message.answer(text=f"Задача: {post_resp['task_id']} создана.")
+    users_list = post_resp['user_list']
     for user in users_list:
         await message.bot.forward_message(chat_id=user,
                                           from_chat_id=chanel_id,
@@ -252,13 +281,19 @@ async def post_task(message: Message, state: FSMContext):
 @router.message(F.text == "Прикрепить фотографию", StateFilter(NewTask.photo), VerifyUser(user_id))
 async def photo_wait(message: Message, state: FSMContext):
     user_data = await state.get_data()
+    room_index: str = ""
+    if user_data['room'] != "Весь этаж":
+        room_index = "#Помещение_"
+        return room_index
+    else:
+        pass
     user_props = user_data['userprops']
     await message.answer(text=f"Номер заявки: {user_props.task_id}\n"
                               f"Объект: #{user_data['object']}\n"
                               f"Субъект: #{user_data['subject']}\n"
                               f"Система: #{user_data['system']}\n"
                               f"Этаж: #Э_{user_data['flor']}\n"
-                              f"Помещение: #Пом_{user_data['room']}\n"
+                              f"{room_index}{user_data['room']}\n"
                               f"Инцидент: #{user_data['incident']}\n"
                               f"Приоритет: #{user_data['priority']}\n"
                               f"Комментарий: {user_data['comment']}\n\n"
@@ -271,9 +306,15 @@ async def photo_wait(message: Message, state: FSMContext):
 async def post_task(message: Message, state: FSMContext):
     photo = message.photo[-1].file_id
     user_data = await state.get_data()
+    room_index: str = ""
+    if user_data['room'] != "Весь этаж":
+        room_index = "#Помещение_"
+        return room_index
+    else:
+        pass
     user_props = user_data['userprops']
-    dt = datetime.datetime.now().strftime('%d_%m_%Y %H:%M')
-    post_resp = await post_tg_create_appeal(time=dt,
+    dt = datetime.datetime.now()
+    post_resp = await post_tg_create_appeal(time=dt.timestamp(),
                                             object=user_data['object'],
                                             subject=user_data['subject'],
                                             system=user_data['system'],
@@ -281,23 +322,26 @@ async def post_task(message: Message, state: FSMContext):
                                             room=user_data['room'],
                                             incident=user_data['incident'],
                                             priority=user_data['priority'],
-                                            comment=user_data['comment'],
-                                            data=)
-#posr_resp отдаёт спиок для рассылки и номер в таска
+                                            comment=user_data['comment'])
+    await message.bot.download(message.photo[-1], destination=f"local_storage/{user_props.task_id}_photo.jpg")
+    await add_photo(f"local_storage/{user_props.task_id}_photo.jpg")
     channel_post_id = await message.bot.send_photo(chat_id=chanel_id,
                                                    caption=f"Номер заявки: {user_props.task_id}\n"
-                                                           f"#{dt}\n"
+                                                           f"#Дата_{dt.strftime('%d_%m_%Y %H:%M')}\n"
                                                            f"Объект: #{user_data['object']}\n"
                                                            f"Субъект: #{user_data['subject']}\n"
                                                            f"Система: #{user_data['system']}\n"
-                                                           f"Этаж: #Э_{user_data['flor']}\n"
-                                                           f"Помещение: #Пом_{user_data['room']}\n"
+                                                           f"#Этаж_{user_data['flor']}\n"
+                                                           f"{room_index}{user_data['room']}\n"
                                                            f"Инцидент: #{user_data['incident']}\n"
                                                            f"Приоритет: #{user_data['priority']}\n"
                                                            f"Комментарий: {user_data['comment']}\n",
                                                    photo=photo)
-    await message.answer(text=f"Задача: {channel_post_id.message_id} создана.")
-    users_list = [1344084119, 186208978, 223663162]
+    await post_tg_update_appeal_chanel_post_id(task_id=post_resp['task_id'],
+                                               channel_post_id=channel_post_id.message_id)
+    await message.answer(text=f"Задача: {post_resp['task_id']} создана.")
+    await os.remove(f"local_storage/{user_props.task_id}_photo.jpg")
+    users_list = post_resp['user_list']
     for user in users_list:
         await message.bot.forward_message(chat_id=user,
                                           from_chat_id=chanel_id,
