@@ -1,4 +1,4 @@
-import { Button, Spinner } from 'react-bootstrap';
+import { Accordion, Button, Spinner } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
 import { useGetObjects } from '../../services/Objectus/hooks';
@@ -23,22 +23,28 @@ export const SidebarMenu = () => {
         <li className={style.sidebar_header}>Мои объекты</li>
 
         {data?.map((objectusObject) => (
-          <NavLink key={objectusObject.id} to="main" className="active">
-            {objectusObject.name}
-          </NavLink>
+          <Accordion key={objectusObject.id} defaultActiveKey="0" flush>
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>{objectusObject.name}</Accordion.Header>
+              <Accordion.Body>
+                <ul>
+                  <li>
+                    <NavLink to="main">Заявки</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="main">Настройки</NavLink>
+                  </li>
+                </ul>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
+          //   <NavLink key={objectusObject.id} to="main" className="active">
+          //     {objectusObject.name}
+          //   </NavLink>
         ))}
         <li className={style.sidebar_link}>
           <Button className="btn btn-primary btn-sm">+ Новый объект</Button>
         </li>
-      </ul>
-      <ul className={style.sidebar_nav}>
-        <li className={style.sidebar_header}>Заявки</li>
-        <NavLink to="main">Мои завки</NavLink>
-        {/* <li className={style.sidebar_link}>
-          <a className="sidebar-link" href="pages-profile.html">
-            <span className="align-middle">Profile</span>
-          </a>
-        </li> */}
       </ul>
       ;
     </>

@@ -3,7 +3,7 @@ import { getObjectsAPI } from './Service';
 
 export const useGetObjects = () => {
   return useQuery({
-    queryKey: ['getAllObjects'],
+    queryKey: ['getObjectsFromObjectus'],
     queryFn: getObjectsAPI,
     select: ({ data }) => data,
   });

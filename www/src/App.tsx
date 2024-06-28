@@ -9,7 +9,7 @@ import { LoginForm } from './components/Auth';
 import ProtectedRoute from './routes/PrivateRouter';
 
 import './App.css';
-import DashboardContent from './components/DashboardContent';
+import DashboardMain from './components/DashboardMain';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,8 +31,8 @@ const router = createBrowserRouter(
               ),
             }}
           >
-            <Route index element={<DashboardContent />} />
-            <Route path="objects" element={<DashboardContent />} />
+            <Route index element={<DashboardMain />} />
+            <Route path="objects" element={<DashboardMain />} />
           </Route>
         </Route>
 

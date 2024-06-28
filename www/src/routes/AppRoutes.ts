@@ -4,7 +4,7 @@ export const AppRoutes = {
     logout: '/logout',
   },
   USER_PROFILE: {
-    home: '/',
+    home: '/profile',
     upload_file: '/upload-file',
   },
   ADMIN_PROFILE: {

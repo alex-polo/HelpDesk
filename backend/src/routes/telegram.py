@@ -1,5 +1,5 @@
 import logging
-from typing import List
+from typing import List, Optional
 
 import fastapi
 from fastapi import APIRouter, Depends, UploadFile
@@ -50,7 +50,7 @@ async def tg_user_appeal_params(tg_user_request: TgUserRequest,
                       status_code=fastapi.status.HTTP_201_CREATED,
                       response_model=TgAppealCreateTaskIDResponse)
 async def tg_create_appeal(request: TgAppealRequest,
-                           file: UploadFile,
+                           file: Optional[UploadFile] = None,
                            session: AsyncSession = Depends(get_async_session),
                            user: User = Depends(current_active_user)):
     return TgAppealCreateTaskIDResponse(
