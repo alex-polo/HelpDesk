@@ -82,7 +82,7 @@ async def tg_get_appeals(request: TgAppealsRequest,
                          user: User = Depends(current_active_user)):
     return [TgAppealsResponse(
         task_id='task_1',
-        chanel_post_id=1,
+        chanel_post_id=2,
         priority='критичный'
     ), ]
 
