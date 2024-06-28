@@ -1,5 +1,6 @@
 import datetime
 import json
+import os.path
 
 from aiogram.client.session import aiohttp
 from aiohttp.web_exceptions import HTTPUnauthorized
@@ -152,14 +153,18 @@ async def close_appeal(tg_id: int, task_id: str):
 
 
 @need_login
-async def add_photo(file: str):
+async def add_photo(file):
     async with aiohttp.ClientSession() as session:
+        data = aiohttp.FormData()
+        data.add_field('file',
+                       open(file, 'rb'),
+                       filename=file,
+                       content_type="image/png")
         headers = {'content-type': 'multipart/form-data',
                    'accept': 'application/json',
                    "authorization": f"Bearer {params.TOKEN}"}
-        data = aiohttp.FormData()
         async with session.post(url=params.ENDPOINTS.tg_appeal_add_photo,
-                                data={'file': open(f'{file}', 'rb')},
+                                data=data,
                                 headers=headers) as resp:
             if resp.status == 401:
                 raise HTTPUnauthorized()
