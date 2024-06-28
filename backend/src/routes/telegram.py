@@ -50,12 +50,19 @@ async def tg_user_appeal_params(tg_user_request: TgUserRequest,
                       status_code=fastapi.status.HTTP_201_CREATED,
                       response_model=TgAppealCreateTaskIDResponse)
 async def tg_create_appeal(request: TgAppealRequest,
-                           file: Optional[UploadFile] = None,
                            session: AsyncSession = Depends(get_async_session),
                            user: User = Depends(current_active_user)):
     return TgAppealCreateTaskIDResponse(
         task_id='TASK123456'
     )
+
+
+@telegram_router.post("/tg-appeal-add-photo",
+                      status_code=fastapi.status.HTTP_201_CREATED)
+async def tg_appeal_add_photo(file: UploadFile,
+                              session: AsyncSession = Depends(get_async_session),
+                              user: User = Depends(current_active_user)):
+    pass
 
 
 @telegram_router.post("/tg-update-appeal-chanel-post-id",
