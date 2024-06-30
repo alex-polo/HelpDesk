@@ -47,7 +47,6 @@ async def new_task(message: Message, state: FSMContext):
                       system=propsapi['system'],
                       incident=propsapi['incident'],
                       priority=propsapi['priority'],
-                      task_id=1111,
                       role="Инженер")
         await state.update_data(userprops=props)
     user_data = await state.get_data()
@@ -270,8 +269,7 @@ async def photo_wait(message: Message, state: FSMContext):
     if user_data['room'] == "Весь этаж":
         room_index = ""
     user_props = user_data['userprops']
-    await message.answer(text=f"Номер заявки: {user_props.task_id}\n"
-                              f"Объект: #{user_data['object']}\n"
+    await message.answer(text=f"Объект: #{user_data['object']}\n"
                               f"Субъект: #{user_data['subject']}\n"
                               f"Система: #{user_data['system']}\n"
                               f"Этаж: #Э_{user_data['flor']}\n"
@@ -292,7 +290,6 @@ async def post_task(message: Message, state: FSMContext):
     if user_data['room'] == "Весь этаж":
         room_index = ""
     user_props = user_data['userprops']
-    path = f"local_storage/{user_props.task_id}.png"
     dt = datetime.datetime.now()
     post_resp = await post_tg_create_appeal(time=dt.timestamp(),
                                             object=user_data['object'],
@@ -303,11 +300,11 @@ async def post_task(message: Message, state: FSMContext):
                                             incident=user_data['incident'],
                                             priority=user_data['priority'],
                                             comment=user_data['comment'])
-    # await message.bot.download(message.photo[-1], destination=path)
-    # await message.answer(text=path)
-    # await add_photo(file=path)
+    path = f"local_storage/{post_resp["task_id"]}.png"
+    await message.bot.download(message.photo[-1], destination=path)
+    await add_photo(file=path)
     channel_post_id = await message.bot.send_photo(chat_id=chanel_id,
-                                                   caption=f"Номер заявки: {user_props.task_id}\n"
+                                                   caption=f"Номер заявки: {post_resp["task_id"]}\n"
                                                            f"#Дата_{dt.strftime('%d_%m_%Y %H:%M')}\n"
                                                            f"Объект: #{user_data['object']}\n"
                                                            f"Субъект: #{user_data['subject']}\n"
@@ -318,15 +315,16 @@ async def post_task(message: Message, state: FSMContext):
                                                            f"Приоритет: #{user_data['priority']}\n"
                                                            f"Комментарий: {user_data['comment']}\n",
                                                    photo=photo)
+    os.remove(path)
     await post_tg_update_appeal_chanel_post_id(task_id=post_resp['task_id'],
                                                channel_post_id=channel_post_id.message_id)
     await message.answer(text=f"Задача: {post_resp['task_id']} создана.")
-    # await os.remove(path=path)
     users_list = post_resp['user_list']
     for user in users_list:
         await message.bot.forward_message(chat_id=user,
                                           from_chat_id=chanel_id,
                                           message_id=channel_post_id.message_id)
+
     await state.clear()
 
 

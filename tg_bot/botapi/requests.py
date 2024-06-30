@@ -62,14 +62,14 @@ async def post_tg_create_appeal(time: datetime,
                    "authorization": f"Bearer {params.TOKEN}"}
         async with session.post(url=params.ENDPOINTS.tg_create_appeal,
                                 data=json.dumps({"timedelta": time,
-                                      "object": object,
-                                      "subject": subject,
-                                      "system": system,
-                                      "flour": flour,
-                                      "room": room,
-                                      "incident": incident,
-                                      "priority": priority,
-                                      "comment": comment}),
+                                                 "object": object,
+                                                 "subject": subject,
+                                                 "system": system,
+                                                 "flour": flour,
+                                                 "room": room,
+                                                 "incident": incident,
+                                                 "priority": priority,
+                                                 "comment": comment}),
                                 headers=headers) as resp:
             if resp.status == 401:
                 raise HTTPUnauthorized()
@@ -87,14 +87,12 @@ async def post_tg_update_appeal_chanel_post_id(task_id: str, channel_post_id: in
                    'accept': 'application/json',
                    "authorization": f"Bearer {params.TOKEN}"}
         async with session.post(url=params.ENDPOINTS.tg_update_appeal_chanel_post_id,
-                                data=json.dumps({'tg_id': task_id,
-                                                 'chanel_post_id': channel_post_id}),
+                                data=json.dumps({"task_id": task_id, "chanel_post_id": channel_post_id}),
                                 headers=headers) as resp:
             if resp.status == 401:
                 raise HTTPUnauthorized()
-            user_appeal: str = (await resp.json())
-            if user_appeal is not None:
-                return user_appeal
+            if resp.status == 401:
+                pass
             else:
                 raise Exception('User Appeal is None in response server')
 
@@ -154,22 +152,19 @@ async def close_appeal(tg_id: int, task_id: str):
 
 @need_login
 async def add_photo(file):
-    async with aiohttp.ClientSession() as session:
+    async with (aiohttp.ClientSession() as session):
+        headers = {"Authorization": f"Bearer {params.TOKEN}"}
         data = aiohttp.FormData()
-        with open(file, 'rb') as f:
-            data.add_field('file',
-                           f,
-                           filename=os.path.basename(file),
-                           content_type="image/png")
-            headers = {'content-type': 'multipart/form-data',
-                       'accept': 'application/json',
-                       "authorization": f"Bearer {params.TOKEN}"}
-            async with session.post(url=params.ENDPOINTS.tg_appeal_add_photo,
-                                    data=data,
-                                    headers=headers) as resp:
-                if resp.status == 401:
-                    raise HTTPUnauthorized()
-                if resp.status == 201:
-                    pass
-                else:
-                    raise Exception('User Appeal is None in response server')
+        data.add_field('file',
+                       open(file, 'rb'),
+                       filename=file,
+                       content_type='multipart/form-data')
+        async with session.post(url=params.ENDPOINTS.tg_appeal_add_photo,
+                                data=data,
+                                headers=headers) as resp:
+            if resp.status == 401:
+                raise HTTPUnauthorized()
+            if resp.status == 201:
+                pass
+            else:
+                raise Exception('User Appeal is None in response server')
