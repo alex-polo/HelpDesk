@@ -13,7 +13,6 @@ class Props:
     system: list
     incident: list
     priority: list
-    task_id: int
     role: str
 
 

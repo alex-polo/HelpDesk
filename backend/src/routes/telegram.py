@@ -63,7 +63,12 @@ async def tg_create_appeal(request: TgAppealRequest,
 async def tg_appeal_add_photo(file: UploadFile,
                               session: AsyncSession = Depends(get_async_session),
                               user: User = Depends(current_active_user)):
-    pass
+    filename: str = file.filename.split('%2F')[1]
+    task_id: str = filename.split('.')[0]
+    with open(filename, "wb") as f:
+        f.write(file.file.read())
+    print(file)
+    return {file.filename}
 
 
 @telegram_router.post("/tg-update-appeal-chanel-post-id",
