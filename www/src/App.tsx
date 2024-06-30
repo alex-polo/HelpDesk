@@ -3,15 +3,14 @@ import { DashboardLayout } from './layouts/DashbordLayout';
 import { RootLayout } from './layouts/RootLayout';
 import { NotFoundForm } from './components/NotFound';
 import { LoginForm } from './components/Auth';
-
 import { AppRoutes } from './routes/AppRoutes';
+import { HomePage } from './components/HomePage';
+import { AuthLayout } from './layouts/AuthLayout';
+import { UserAddObjectCrumb, UserAppealsCrumb, UserProfileCrumb, UserSettingsCrumb } from './components/Breadcrumbs';
 import { DashboardHome, ObjectAppeals, ObjectSettings } from './components/DashboardContent';
+import CreateObject from './components/DashboardContent/CreateObject';
 
 import './App.css';
-import { UserAddObjectCrumb, UserAppealsCrumb, UserProfileCrumb, UserSettingsCrumb } from './components/Breadcrumbs';
-import { HomePage } from './components/HomePage';
-import CreateObject from './components/DashboardContent/CreateObject';
-import { AuthLayout } from './layouts/AuthLayout';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,28 +28,22 @@ const router = createBrowserRouter(
         >
           <Route index element={<DashboardHome />} />
           <Route
-            path={AppRoutes.USER_PROFILE.appeals}
+            path={AppRoutes.USER_PROFILE.appealsRoute}
             element={<ObjectAppeals />}
             handle={{
               crumb: () => <UserAppealsCrumb />,
             }}
           />
           <Route
-            path={AppRoutes.USER_PROFILE.objectSettings}
+            path={AppRoutes.USER_PROFILE.objectSettingsRoute}
             element={<ObjectSettings />}
             handle={{
               crumb: () => <UserSettingsCrumb />,
             }}
           />
-          {/* <Route
-          path={AppRoutes.USER_PROFILE.noObjects}
-          element={<NoObjects />}
-          handle={{
-            crumb: () => <UserAddObjectCrumb />,
-          }}
-        /> */}
+
           <Route
-            path={AppRoutes.USER_PROFILE.createObjects}
+            path={AppRoutes.USER_PROFILE.createObject}
             element={<CreateObject />}
             handle={{
               crumb: () => <UserAddObjectCrumb />,

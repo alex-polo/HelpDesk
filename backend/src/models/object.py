@@ -8,4 +8,5 @@ class Object(Base):
     __tablename__ = "object"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(255), nullable=False, unique=False)
+    name: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
+    description: Mapped[str] = mapped_column(String(255), nullable=True, unique=False)

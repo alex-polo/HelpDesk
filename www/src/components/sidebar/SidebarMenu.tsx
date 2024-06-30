@@ -1,5 +1,5 @@
-import { Accordion, Button, Spinner } from 'react-bootstrap';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Accordion, Spinner } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 
 import { useGetObjects } from '../../services/Objectus/hooks';
 
@@ -10,8 +10,6 @@ const SidebarMenu = () => {
   const { isLoading, isError, data } = useGetObjects();
 
   if (isLoading) <Spinner className={style.sidebar_spinner} animation="grow" variant="primary" />;
-
-  // if (data?.length === 1) navigate(AppRoutes.USER_PROFILE.createObjects);
 
   if (isError)
     return (
@@ -32,10 +30,10 @@ const SidebarMenu = () => {
               <Accordion.Body>
                 <ul>
                   <li>
-                    <NavLink to={AppRoutes.USER_PROFILE.appeals}>Заявки</NavLink>
+                    <NavLink to={AppRoutes.USER_PROFILE.appealsLink(objectusObject.name)}>Заявки</NavLink>
                   </li>
                   <li>
-                    <NavLink to={AppRoutes.USER_PROFILE.objectSettings}>Настройки</NavLink>
+                    <NavLink to={AppRoutes.USER_PROFILE.objectSettingsLink(objectusObject.name)}>Настройки</NavLink>
                   </li>
                 </ul>
               </Accordion.Body>
@@ -46,7 +44,7 @@ const SidebarMenu = () => {
           //   </NavLink>
         ))}
         <li className={style.sidebar_link}>
-          <NavLink className="btn btn-primary btn-sm" to={AppRoutes.USER_PROFILE.createObjects}>
+          <NavLink className="btn btn-primary btn-sm" to={AppRoutes.USER_PROFILE.createObject}>
             + Новый объект
           </NavLink>
           {/* <Button className="btn btn-primary btn-sm">+ Новый объект</Button> */}

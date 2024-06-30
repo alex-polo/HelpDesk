@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }: Props) => {
       localStorage.setItem('userProfile', JSON.stringify(profile));
       setUserProfile(profile);
       axiosInstance.defaults.headers['Authorization'] = `Bearer ${profile.access_token}`;
-      navigate(AppRoutes.USER_PROFILE.home);
+      navigate(AppRoutes.USER_PROFILE.homeLink(loginUserData.email));
     } catch (error) {
       unauthorized();
       throw new Error('loginUser response was not ok');

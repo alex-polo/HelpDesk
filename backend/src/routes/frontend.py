@@ -2,8 +2,10 @@ import logging
 from typing import List
 
 import fastapi
+from asyncpg import UniqueViolationError
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy import select
+from sqlalchemy import select, insert
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.auth.manager import current_active_user
@@ -35,8 +37,16 @@ async def create_object(value: CreateObjectQuery,
                         user: User = Depends(current_active_user)):
     # if user.is_superuser is False:
     #     raise HTTPException(status_code=fastapi.status.HTTP_403_FORBIDDEN)
-    print(value)
-    # return await session.execute(insert)
+    try:
+        await session.execute(insert(Object).values(name=value.name, description=value.description))
+        await session.commit()
+    except IntegrityError as error:
+        print(error)
+        raise HTTPException(status_code=fastapi.status.HTTP_409_CONFLICT)
+    except Exception as error:
+        print(error)
+
+
 
 
 @frontend_router.get("/get-objects",

@@ -1,0 +1,14 @@
+.create_object_form {
+  line-height: 3em;
+  max-width: 35em;
+  min-width: 20em;
+  padding: 40px;
+  background: #fff;
+  border-radius: 5px;
+  text-align: center !important;
+  box-shadow: var(--bs-box-shadow) !important;
+}
+
+.create_object_form input {
+  width: 100%;
+}
