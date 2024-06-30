@@ -1,12 +1,21 @@
 .header_img {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
+}
+
+.header-text {
+  font-weight: 600;
+  font-size: 1.15rem;
+  padding: 1.15rem 1.5rem;
+  display: block;
+  color: #f8f9fa;
 }
 
 .navbar-brand {
-  border-bottom: 1px solid #6b72801a;
+  /* border-bottom: 1px solid #6b72801a; */
   border-right: 1px solid #6b72801a;
-  height: 85px;
+  height: 4.16em;
   background-color: #171d25;
+  color: #fff;
 }
 
 .navbar-brand:hover {
@@ -29,10 +38,6 @@
   background: #222e3c;
   margin-left: 0px;
 }
-
-/* #sidebar a.active {
-  color: red;
-} */
 
 .sidebar_hide {
   margin-left: -260px;

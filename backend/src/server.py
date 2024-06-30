@@ -13,9 +13,10 @@ from src.services.startup import update_admin_user, update_bot_user, verify_stor
 logger = logging.getLogger(__name__)
 
 origins = [
-    "https://127.0.0.1",
-    "https://localhost",
-    "https://developer.host",
+    "https://127.0.0.1:5173",
+    "http://127.0.0.1:5173",
+    "https://developer.host:5173",
+    "http://developer.host:5173",
     "http://localhost:5173",
     "https://localhost:5173",
     "https://gunkonk.ru"
@@ -50,7 +51,7 @@ app.include_router(telegram_router)
 app.include_router(frontend_router)
 
 
-app.add_middleware(HTTPSRedirectMiddleware, )
+# app.add_middleware(HTTPSRedirectMiddleware, )
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,

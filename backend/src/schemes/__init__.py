@@ -9,4 +9,6 @@ from .telegram import (TgUserRoleResponse,
                        TgAppealsRequest,
                        TgAppealsResponse)
 
-from .frontend import TGUserResponseModel, QueryValue, ObjectResponse
+from .frontend import (TGUserResponseModel,
+                       CreateObjectQuery,
+                       ObjectResponse)

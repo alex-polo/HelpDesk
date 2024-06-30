@@ -11,8 +11,9 @@ class TGUserResponseModel(BaseModel):
     is_active: str
 
 
-class QueryValue(BaseModel):
-    data: str
+class CreateObjectQuery(BaseModel):
+    name: str
+    description: str
 
 
 class ObjectResponse(BaseModel):

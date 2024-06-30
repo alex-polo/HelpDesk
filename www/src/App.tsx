@@ -1,45 +1,56 @@
-import { Link, Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
-import { MdOutlineCottage } from 'react-icons/md';
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { DashboardLayout } from './layouts/DashbordLayout';
 import { RootLayout } from './layouts/RootLayout';
-import { QueryClientLayout } from './layouts/QueryClientLayout';
 import { NotFoundForm } from './components/NotFound';
-import { AuthLayout } from './layouts/AuthLayout';
 import { LoginForm } from './components/Auth';
-import ProtectedRoute from './routes/PrivateRouter';
+import { AppRoutes } from './routes/AppRoutes';
+import { HomePage } from './components/HomePage';
+import { AuthLayout } from './layouts/AuthLayout';
+import { UserAddObjectCrumb, UserAppealsCrumb, UserProfileCrumb, UserSettingsCrumb } from './components/Breadcrumbs';
+import { DashboardHome, ObjectAppeals, ObjectSettings } from './components/DashboardContent';
+import CreateObject from './components/DashboardContent/CreateObject';
 
 import './App.css';
-import DashboardMain from './components/DashboardMain';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<QueryClientLayout />}>
-      <Route path="/" element={<RootLayout />}>
-        <Route element={<AuthLayout />}>
-          <Route
-            path="profile"
-            element={
-              <ProtectedRoute>
-                <DashboardLayout />
-              </ProtectedRoute>
-            }
-            handle={{
-              crumb: () => (
-                <Link to="/profile">
-                  <MdOutlineCottage />
-                </Link>
-              ),
-            }}
-          >
-            <Route index element={<DashboardMain />} />
-            <Route path="objects" element={<DashboardMain />} />
-          </Route>
-        </Route>
-
-        <Route path="login" element={<LoginForm />} />
-      </Route>
-
+    <Route path={AppRoutes.PUBLIC.home} element={<RootLayout />}>
+      <Route index element={<HomePage />} />
       <Route path="*" element={<NotFoundForm />} />
+      <Route path="login" element={<LoginForm />} />
+      <Route element={<AuthLayout />}>
+        <Route
+          path={`${AppRoutes.USER_PROFILE.home}/*`}
+          element={<DashboardLayout />}
+          handle={{
+            crumb: () => <UserProfileCrumb />,
+          }}
+        >
+          <Route index element={<DashboardHome />} />
+          <Route
+            path={AppRoutes.USER_PROFILE.appealsRoute}
+            element={<ObjectAppeals />}
+            handle={{
+              crumb: () => <UserAppealsCrumb />,
+            }}
+          />
+          <Route
+            path={AppRoutes.USER_PROFILE.objectSettingsRoute}
+            element={<ObjectSettings />}
+            handle={{
+              crumb: () => <UserSettingsCrumb />,
+            }}
+          />
+
+          <Route
+            path={AppRoutes.USER_PROFILE.createObject}
+            element={<CreateObject />}
+            handle={{
+              crumb: () => <UserAddObjectCrumb />,
+            }}
+          />
+        </Route>
+      </Route>
     </Route>
   )
 );

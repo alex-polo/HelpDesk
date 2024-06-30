@@ -15,12 +15,9 @@ export const getObjectsAPI = async (): Promise<AxiosResponse<IObjectObjectus[]>>
   return await axiosInstance.get<IObjectObjectus[]>(Endpoints.OBJECTUS.get_objects);
 };
 
-export const createObjectAPI = async (name: string, description: string): Promise<boolean> => {
-  const { status } = await axiosInstance.post(
-    Endpoints.AUTH.login,
-    { username: name, password: description },
-    { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
-  );
-  if (status === 201) return true;
-  return false;
+export const createObjectAPI = async (object: IObjectObjectus): Promise<AxiosResponse> => {
+  return await axiosInstance.post(Endpoints.OBJECTUS.create_object, {
+    name: object.name,
+    description: object.description,
+  });
 };

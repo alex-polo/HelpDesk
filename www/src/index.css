@@ -1,8 +1,7 @@
-/* @import 'bootstrap/dist/css/bootstrap.min.css'; */
-@import './src/components/sidebar/Sidebar.module.css';
+@import './components/Sidebar/Sidebar.module.css';
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Inter, system-ui, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.87);
@@ -28,6 +27,30 @@ body {
   min-width: 0;
   min-height: 100vh;
   overflow: hidden;
+}
+
+.error-container {
+  color: #fff;
+  margin-top: 3em;
+  padding: 1em;
+  line-height: 1.5em;
+}
+
+.load-spinner {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  padding: 3rem 3rem 1.5rem;
+  width: auto;
+  flex: 1;
+  max-width: 100vw;
+  direction: ltr;
 }
 
 .main {

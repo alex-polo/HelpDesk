@@ -24,13 +24,14 @@ export const Breadcrumbs = () => {
     .filter((match) => Boolean(match.handle?.crumb))
     .map((match: IndexRouteObject) => match.handle.crumb(match.data));
 
-  return (
-    <Breadcrumb>
-      {crumbs.map((crumb, index) => (
-        <li key={index} className="breadcrumb-item">
-          {crumb}
-        </li>
-      ))}
-    </Breadcrumb>
-  );
+  if (crumbs.length > 1)
+    return (
+      <Breadcrumb>
+        {crumbs.map((crumb, index) => (
+          <li key={index} className="breadcrumb-item">
+            {crumb}
+          </li>
+        ))}
+      </Breadcrumb>
+    );
 };

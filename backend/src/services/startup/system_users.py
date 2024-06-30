@@ -1,8 +1,6 @@
 import contextlib
 
-from fastapi import Depends
-from sqlalchemy import select, delete, sql
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import delete, sql
 from sqlalchemy.sql import dml
 
 from src.auth import create_system_user

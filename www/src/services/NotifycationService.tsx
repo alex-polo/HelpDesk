@@ -14,6 +14,12 @@ export const toastSuccess = (text: string) => {
   });
 };
 
+export const toastWarning = (text: string) => {
+  toast.warning(text, {
+    position: position,
+  });
+};
+
 export const toastInfo = (text: string) => {
   toast.info(text, {
     position: position,
