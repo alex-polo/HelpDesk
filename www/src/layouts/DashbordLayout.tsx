@@ -1,43 +1,69 @@
-import { ReactElement } from 'react';
-import { useOutlet } from 'react-router-dom';
+import { ReactElement, useState } from 'react';
+import { Outlet, useOutlet } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Spinner } from 'react-bootstrap';
+import { Container, Spinner } from 'react-bootstrap';
 
-import { useAuth } from '../context/AuthProvider';
 import NavBar from '../components/NavBar';
 import Sidebar from '../components/Sidebar';
+import Breadcrumbs from '../components/Breadcrumbs';
+import ProtectedRoute from '../routes/PrivateRouter';
+
+import { useAuth } from '../context/AuthProvider';
+import { ObjectusProvider } from '../context/ObjectusProvider';
+import { IObjectObjectus } from '../services/Objectus';
+import { useGetObjects } from '../services/Objectus/hooks';
 
 export const DashboardLayout = (): ReactElement => {
+  const outlet = useOutlet();
+  // const [objects, setObjects] = useState<IObjectObjectus[]>();
   const { getUserProfile } = useAuth();
   const queryUserProfile = useQuery({ queryKey: ['userProfile'], queryFn: getUserProfile });
-  const outlet = useOutlet();
+  // const queryObjects = useGetObjects();
+
+  // const handleChangeObjects = (values: IObjectObjectus[]) => {
+  //   setObjects(values);
+  // };
 
   if (queryUserProfile.isLoading) {
     return (
       <>
-        <div className="main">
-          <Spinner animation="grow" variant="primary" />
-        </div>
+        <Container className="load-spinner">
+          <Spinner animation="border" variant="light" />
+        </Container>
       </>
     );
   }
 
   if (queryUserProfile.isError) {
+    console.log(queryUserProfile.error);
     return (
       <>
-        <h1>Internal error</h1>
-        console.log(queryUserProfile.error)
+        <Container>
+          <div className="error-container">
+            <h1>Internal error</h1>
+            <h3>Try again later</h3>
+          </div>
+        </Container>
       </>
     );
   }
 
   return (
     <>
-      <Sidebar />
-      <div className="main">
-        <NavBar username={queryUserProfile.isSuccess ? queryUserProfile.data?.email : 'undefined'} />
-        {outlet}
-      </div>
+      {/* <ProtectedRoute> */}
+      <ObjectusProvider>
+        <Sidebar />
+        <div className="main">
+          <NavBar username={queryUserProfile.isSuccess ? queryUserProfile.data?.email : 'undefined'} />
+
+          <main className="content">
+            <Breadcrumbs />
+            {outlet}
+            {/* <Outlet context={queryObjects.data} />; */}
+          </main>
+        </div>
+      </ObjectusProvider>
+      {/* </ProtectedRoute> */}
     </>
   );
 };

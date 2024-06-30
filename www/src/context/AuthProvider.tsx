@@ -56,10 +56,12 @@ export const AuthProvider = ({ children }: Props) => {
       const data: IUserAccessToken = (await loginAPI(loginUserData.email, loginUserData.password)).data;
       const profile: UserProfile = { email: loginUserData.email, access_token: data.access_token };
       localStorage.setItem('userProfile', JSON.stringify(profile));
+      setUserProfile(profile);
+      axiosInstance.defaults.headers['Authorization'] = `Bearer ${profile.access_token}`;
       navigate(AppRoutes.USER_PROFILE.home);
     } catch (error) {
       unauthorized();
-      throw new Error('getUserProfileInfoAPI response was not ok');
+      throw new Error('loginUser response was not ok');
     }
   };
 
@@ -68,8 +70,10 @@ export const AuthProvider = ({ children }: Props) => {
       try {
         return (await getProfileAPI()).data;
       } catch (error) {
+        console.log(error);
         if (axios.isAxiosError(error)) {
           if (error.response?.status == 401) {
+            console.log('User is unauthorized');
             unauthorized();
           }
         } else {

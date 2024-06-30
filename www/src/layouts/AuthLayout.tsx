@@ -1,8 +1,12 @@
+import { ReactElement } from 'react';
 import { useOutlet } from 'react-router-dom';
-import { AuthProvider } from '../context/AuthProvider';
+import ProtectedRoute from '../routes/PrivateRouter';
 
-export const AuthLayout = () => {
+export const AuthLayout = (): ReactElement => {
   const outlet = useOutlet();
-
-  return <AuthProvider>{outlet}</AuthProvider>;
+  return (
+    <>
+      <ProtectedRoute>{outlet}</ProtectedRoute>
+    </>
+  );
 };

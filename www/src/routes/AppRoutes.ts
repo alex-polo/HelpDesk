@@ -5,9 +5,15 @@ export const AppRoutes = {
   },
   USER_PROFILE: {
     home: '/profile',
-    upload_file: '/upload-file',
+    appeals: 'appeals',
+    noObjects: 'create-objects',
+    createObjects: 'create-objects',
+    objectSettings: 'object-settings',
+  },
+  PUBLIC: {
+    home: '/',
   },
   ADMIN_PROFILE: {
-    admin: '/admin',
+    admin: 'admin',
   },
 };

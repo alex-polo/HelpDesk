@@ -9,7 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.auth.manager import current_active_user
 from src.database import get_async_session
 from src.models import User, TGUser, Object
-from src.schemes import TGUserResponseModel, QueryValue, ObjectResponse
+from src.schemes import TGUserResponseModel, ObjectResponse, CreateObjectQuery
 
 logger = logging.getLogger(__name__)
 
@@ -30,13 +30,13 @@ async def get_tg_users(session: AsyncSession = Depends(get_async_session),
 
 @frontend_router.post("/create-object",
                       status_code=fastapi.status.HTTP_201_CREATED)
-async def create_object(value: QueryValue,
+async def create_object(value: CreateObjectQuery,
                         session: AsyncSession = Depends(get_async_session),
                         user: User = Depends(current_active_user)):
-    if user.is_superuser is False:
-        raise HTTPException(status_code=fastapi.status.HTTP_403_FORBIDDEN)
+    # if user.is_superuser is False:
+    #     raise HTTPException(status_code=fastapi.status.HTTP_403_FORBIDDEN)
     print(value)
-    return await session.execute(select(TGUser))
+    # return await session.execute(insert)
 
 
 @frontend_router.get("/get-objects",
