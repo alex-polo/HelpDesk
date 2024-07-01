@@ -14,3 +14,14 @@ services:
       - "8443:8443"
     restart: on-failure
     command: ["sh", "/backend-server/run.sh"]
+
+  help_desk_bot:
+    build:
+      context: tg_bot
+    env_file:
+      - tg_bot/.env
+    container_name:
+      HelpDeskBot
+    restart: always
+    command:
+      [ "python", "-u", "./start_bot.py" ]
