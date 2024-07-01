@@ -1,1 +1,0 @@
-set HTTPS=true&&npm run dev

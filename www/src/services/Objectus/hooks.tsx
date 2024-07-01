@@ -1,5 +1,5 @@
 import { UseQueryResult, useMutation, useQuery } from '@tanstack/react-query';
-import { createObjectAPI, getObjectsAPI } from './Service';
+import { createObjectAPI, getObjectsAPI } from './Api';
 import { IObjectObjectus } from './objectus.types';
 
 export const useGetObjects = (): UseQueryResult<IObjectObjectus[], Error> => {

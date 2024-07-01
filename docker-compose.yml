@@ -11,7 +11,7 @@ services:
 #      - /ftas01/apps/HelpDesk/storage:/backend-server/storage:rw
 #      - d:\dev\108bit\HelpDesk\storage\:/backend-server/storage:rw
     ports:
-      - "8443:8443"
+      - "8444:8444"
     restart: on-failure
     command: ["sh", "/backend-server/run.sh"]
 

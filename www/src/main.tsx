@@ -6,7 +6,6 @@ import App from './App.tsx';
 
 import './index.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { AuthProvider } from './context/AuthProvider.tsx';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 export const queryClient = new QueryClient({

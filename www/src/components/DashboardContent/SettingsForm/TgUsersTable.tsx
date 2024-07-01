@@ -106,6 +106,7 @@ const defaultData: Person[] = [
 ];
 
 const TgUsersTable = (props: Props) => {
+  console.log(props);
   const columnHelper = createColumnHelper<Person>();
 
   const columns = [

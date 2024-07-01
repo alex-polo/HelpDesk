@@ -15,7 +15,8 @@ export const UserProfileCrumb = () => {
 export const UserAppealsCrumb = () => {
   return (
     <>
-      <Link to={AppRoutes.USER_PROFILE.appeals}>Заявки</Link>
+      {/* <Link to={AppRoutes.USER_PROFILE.}>Заявки</Link> */}
+      <span>Заявки</span>
     </>
   );
 };
@@ -23,7 +24,8 @@ export const UserAppealsCrumb = () => {
 export const UserSettingsCrumb = () => {
   return (
     <>
-      <Link to={AppRoutes.USER_PROFILE.objectSettings}>Настройки</Link>
+      {/* <Link to={AppRoutes.USER_PROFILE.objectSettings}>Настройки</Link> */}
+      <span>Настройки</span>
     </>
   );
 };
@@ -31,7 +33,8 @@ export const UserSettingsCrumb = () => {
 export const UserAddObjectCrumb = () => {
   return (
     <>
-      <Link to={AppRoutes.USER_PROFILE.createObjects}>Создание объекта</Link>
+      {/* <Link to={AppRoutes.USER_PROFILE.createObjects}>Создание объекта</Link> */}
+      <span>Создание объекта</span>
     </>
   );
 };
