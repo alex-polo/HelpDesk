@@ -19,7 +19,7 @@ origins = [
     "http://developer.host:5173",
     "http://localhost:5173",
     "https://localhost:5173",
-    "https://gunkonk.ru"
+    "https://objectus.ru"
 ]
 
 
@@ -51,7 +51,7 @@ app.include_router(telegram_router)
 app.include_router(frontend_router)
 
 
-# app.add_middleware(HTTPSRedirectMiddleware, )
+app.add_middleware(HTTPSRedirectMiddleware, )
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,

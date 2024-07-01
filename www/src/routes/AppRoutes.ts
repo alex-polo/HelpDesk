@@ -1,10 +1,10 @@
 export const AppRoutes = {
   AUTH: {
-    login: '/login',
-    logout: '/logout',
+    login: 'login',
+    logout: 'logout',
   },
   USER_PROFILE: {
-    home: '/profile',
+    home: 'profile',
     createObject: 'create-object',
 
     appealsRoute: 'appeals/:objectName',

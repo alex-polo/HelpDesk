@@ -16,8 +16,8 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path={AppRoutes.PUBLIC.home} element={<RootLayout />}>
       <Route index element={<HomePage />} />
-      <Route path="*" element={<NotFoundForm />} />
       <Route path="login" element={<LoginForm />} />
+      <Route path="*" element={<NotFoundForm />} />
       <Route element={<AuthLayout />}>
         <Route
           path={`${AppRoutes.USER_PROFILE.home}/*`}
