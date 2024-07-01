@@ -51,7 +51,7 @@ app.include_router(telegram_router)
 app.include_router(frontend_router)
 
 
-# app.add_middleware(HTTPSRedirectMiddleware, )
+app.add_middleware(HTTPSRedirectMiddleware, )
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
