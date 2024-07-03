@@ -11,11 +11,28 @@ class TGUserResponseModel(BaseModel):
     is_active: str
 
 
+class CreateOrganizationQuery(BaseModel):
+    name: str
+    address: str
+    inn: int
+    supervisor: str
+    description: str
+    is_active: bool
+
+
+class OrganizationResponse(CreateOrganizationQuery):
+    id: int
+
+
 class CreateObjectQuery(BaseModel):
     name: str
+    address: str
     description: str
+    is_active: bool
 
 
 class ObjectResponse(BaseModel):
     id: int
     name: str
+    address: str
+    description: str

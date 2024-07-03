@@ -1,3 +1,5 @@
+from typing import Optional
+
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 from sqlalchemy import Integer, String, Boolean
 from sqlalchemy.orm import Mapped, mapped_column
@@ -11,6 +13,9 @@ class User(SQLAlchemyBaseUserTable[int], Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     email: Mapped[int] = mapped_column(String(50), nullable=False, unique=True)
     hashed_password: Mapped[str] = mapped_column(String(1024), nullable=False, unique=False)
+    first_name: Mapped[Optional[str]] = mapped_column(String(50), unique=False)
+    second_name: Mapped[Optional[str]] = mapped_column(String(50), unique=False)
+    surname: Mapped[Optional[str]] = mapped_column(String(50), unique=False)
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, unique=False, default=False)
     is_superuser: Mapped[bool] = mapped_column(Boolean, nullable=False, unique=False, default=False)
     is_tg_bot: Mapped[bool] = mapped_column(Boolean, nullable=False, unique=False, default=False)

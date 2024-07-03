@@ -11,6 +11,7 @@ import { AppRoutes } from '../../../routes/AppRoutes';
 export const CreateObject = () => {
   const [nameObject, setNameObject] = useState<string>('');
   const [descriptionObject, SetDescriptionObject] = useState<string>('');
+  const [addressObject, SetAddressObject] = useState<string>('');
   const createObjectMutation = useCreateObjectusObject();
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -20,7 +21,9 @@ export const CreateObject = () => {
       const object: IObjectObjectus = {
         id: 0,
         name: nameObject,
+        address: addressObject,
         description: descriptionObject,
+        isActive: true
       };
 
       createObjectMutation.mutate(object);
@@ -54,6 +57,15 @@ export const CreateObject = () => {
                 placeholder="Имя объекта"
                 disabled={createObjectMutation.isPending}
                 onChange={(e) => setNameObject(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="text-start mb-4" controlId="formAddress">
+              <Form.Label>Адрес объекта</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Адрес объекта"
+                disabled={createObjectMutation.isPending}
+                onChange={(e) => SetAddressObject(e.target.value)}
               />
             </Form.Group>
             <Form.Group className="text-start mb-4" controlId="formDescription">

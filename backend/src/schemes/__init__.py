@@ -10,5 +10,7 @@ from .telegram import (TgUserRoleResponse,
                        TgAppealsResponse)
 
 from .frontend import (TGUserResponseModel,
+                       CreateOrganizationQuery,
+                       OrganizationResponse,
                        CreateObjectQuery,
                        ObjectResponse)

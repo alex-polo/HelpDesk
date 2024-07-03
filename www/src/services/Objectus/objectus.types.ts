@@ -13,6 +13,8 @@ export interface IOrganizationObjectus {
   address: string;
   inn: string;
   supervisor: string;
+  description: string | null;
+  isActive: boolean;
 }
 
 export interface IObjectObjectus {

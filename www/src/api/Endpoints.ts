@@ -10,6 +10,9 @@ const Endpoints = {
   },
   OBJECTUS: {
     get_tg_users: `${BASE_ENDPOINT}/frontend/get-tg-users`,
+    create_organization: `${BASE_ENDPOINT}/frontend/create-organization`,
+    update_organization: `${BASE_ENDPOINT}/frontend/update-organization`,
+    get_organization: `${BASE_ENDPOINT}/frontend/get-organization`,
     get_objects: `${BASE_ENDPOINT}/frontend/get-objects`,
     create_object: `${BASE_ENDPOINT}/frontend/create-object`,
   },
