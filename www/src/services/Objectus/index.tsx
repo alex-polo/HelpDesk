@@ -1,3 +1,3 @@
 export { getObjectsAPI, createObjectAPI } from './Api';
-export type { IObjectObjectus, IObjectusTgUser } from './objectus.types';
+export type { IObjectObjectus, IObjectusTgUser, IPerson } from './objectus.types';
 export { useCreateObjectusObject } from './hooks';

@@ -1,4 +1,4 @@
-export { ObjectAppeals } from './AppealsForm';
-export { ObjectSettings } from './SettingsForm';
-export { NoObjects } from './HomeForm';
-export { DashboardHome } from './HomeForm';
+export { ObjectAppeals } from './Appeals';
+export { ObjectSettings } from './SettingsObject';
+export { NoObjects } from './Home';
+export { DashboardHome } from './Home';

@@ -1,0 +1,1 @@
+export { TgUsersTable } from './TgUsers';

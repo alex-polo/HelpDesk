@@ -42,7 +42,7 @@ export const DashboardLayout = (): ReactElement => {
   return (
     <>
       <ObjectusProvider>
-        <Sidebar />
+        <Sidebar username={queryUserProfile.data?.email} isSuperUser={queryUserProfile.data?.is_superuser} />
         <div className="main">
           <NavBar username={queryUserProfile.isSuccess ? queryUserProfile.data?.email : 'undefined'} />
 

@@ -1,10 +1,8 @@
-import { Navigate } from 'react-router-dom';
 import { useGetObjects } from '../../../services/Objectus/hooks';
-import { AppRoutes } from '../../../routes/AppRoutes';
 import { Spinner } from 'react-bootstrap';
 
 export const DashboardHome = () => {
-  const { isLoading, isError, data } = useGetObjects();
+  const { isLoading, isError } = useGetObjects();
 
   if (isLoading) <Spinner animation="grow" variant="primary" />;
 
@@ -16,9 +14,9 @@ export const DashboardHome = () => {
     );
   }
 
-  if (data?.length === 0) {
-    return <Navigate to={AppRoutes.USER_PROFILE.createObject} replace />;
-  }
+  // if (data?.length === 0) {
+  //   return <Navigate to={AppRoutes.USER_PROFILE.createObject} replace />;
+  // }
 
   return (
     <>

@@ -1,9 +1,15 @@
 import { Nav, Navbar } from 'react-bootstrap';
 import { AppRoutes } from '../../routes/AppRoutes';
 
-import SidebarMenu from './SidebarMenu';
+import SidebarMenu from './UserMenu';
+import { AdminMenu } from './AdminMenu';
 
-export const Sidebar = () => {
+type Props = {
+  username: string | undefined;
+  isSuperUser: boolean | undefined;
+};
+
+export const Sidebar = (props: Props) => {
   return (
     <>
       <div id="sidebar" className="sidebar">
@@ -13,7 +19,7 @@ export const Sidebar = () => {
             <span className="header-text">108БИТ</span>
           </Navbar.Brand>
 
-          <SidebarMenu />
+          {!props.isSuperUser ? <AdminMenu /> : <SidebarMenu />}
         </Nav>
       </div>
     </>

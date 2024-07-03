@@ -1,5 +1,5 @@
-// const BASE_ENDPOINT = 'https://127.0.0.1:8443';
-const BASE_ENDPOINT = 'https://objectus.ru:8444';
+const BASE_ENDPOINT = 'http://127.0.0.1:8443';
+// const BASE_ENDPOINT = 'https://objectus.ru:8444';
 
 const Endpoints = {
   BASE_URL: BASE_ENDPOINT,
