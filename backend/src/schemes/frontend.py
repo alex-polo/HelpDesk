@@ -24,6 +24,11 @@ class OrganizationResponse(CreateOrganizationQuery):
     id: int
 
 
+class UserOrganizationsResponse(BaseModel):
+    organization: OrganizationResponse
+    role: str
+
+
 class CreateObjectQuery(BaseModel):
     name: str
     address: str

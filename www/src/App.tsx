@@ -6,8 +6,14 @@ import { LoginForm } from './components/Auth';
 import { AppRoutes } from './routes/AppRoutes';
 import { HomePage } from './components/HomePage';
 import { AuthLayout } from './layouts/AuthLayout';
-import { UserAddObjectCrumb, UserAppealsCrumb, UserProfileCrumb, UserSettingsCrumb } from './components/Breadcrumbs';
-import { DashboardHome, ObjectAppeals, ObjectSettings } from './components/DashboardContent';
+import {
+  UserAddObjectCrumb,
+  UserAddOrganizationCrumb,
+  UserAppealsCrumb,
+  UserProfileCrumb,
+  UserSettingsCrumb,
+} from './components/Breadcrumbs';
+import { CreateOrganizationForm, DashboardHome, ObjectAppeals, ObjectSettings } from './components/DashboardContent';
 import CreateObject from './components/DashboardContent/CreateObject';
 
 import './App.css';
@@ -47,6 +53,13 @@ const router = createBrowserRouter(
             element={<CreateObject />}
             handle={{
               crumb: () => <UserAddObjectCrumb />,
+            }}
+          />
+          <Route
+            path={AppRoutes.USER_PROFILE.createOrganization}
+            element={<CreateOrganizationForm />}
+            handle={{
+              crumb: () => <UserAddOrganizationCrumb />,
             }}
           />
         </Route>

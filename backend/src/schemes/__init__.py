@@ -13,4 +13,5 @@ from .frontend import (TGUserResponseModel,
                        CreateOrganizationQuery,
                        OrganizationResponse,
                        CreateObjectQuery,
-                       ObjectResponse)
+                       ObjectResponse,
+                       UserOrganizationsResponse)

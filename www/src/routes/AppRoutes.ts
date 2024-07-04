@@ -6,6 +6,7 @@ export const AppRoutes = {
   USER_PROFILE: {
     home: '/profile',
     createObject: 'create-object',
+    createOrganization: 'create-organization',
 
     appealsRoute: 'appeals/:objectName',
     noObjectsRoute: 'no-objects/:objectName',

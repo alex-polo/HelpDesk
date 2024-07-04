@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import axiosInstance from '../../api/AxiosInstance';
 import Endpoints from '../../api/Endpoints';
-import { IObjectObjectus, IOrganizationObjectus } from './objectus.types';
+import { IObjectObjectus, IOrganizationObjectus, IUserOrganizationsObjectus } from './objectus.types';
 
 // export const getTgUsersAPI = async (token: string): Promise<AxiosResponse<IObjectusTgUser[]>> => {
 //   return await axiosInstance.get<IObjectusTgUser[]>(Endpoints.OBJECTUS.get_tg_users, {
@@ -27,14 +27,14 @@ export const createOrganizationAPI = async (organization: IOrganizationObjectus)
     name: organization.name,
     address: organization.address,
     inn: organization.inn,
-    supervision: organization.supervisor,
+    supervisor: organization.supervisor,
     description: organization.description,
-    is_Active: organization.isActive
+    is_active: organization.isActive,
   });
 };
 
-export const getOrganizationAPI = async (): Promise<AxiosResponse<IOrganizationObjectus[]>> => {
-  return await axiosInstance.get<IOrganizationObjectus[]>(Endpoints.OBJECTUS.get_organization);
+export const getOrganizationAPI = async (): Promise<AxiosResponse<IUserOrganizationsObjectus[]>> => {
+  return await axiosInstance.get<IUserOrganizationsObjectus[]>(Endpoints.OBJECTUS.get_organization);
 };
 
 export const updateOrganizationAPI = async (organization: IOrganizationObjectus): Promise<AxiosResponse> => {
@@ -45,6 +45,6 @@ export const updateOrganizationAPI = async (organization: IOrganizationObjectus)
     inn: organization.inn,
     supervision: organization.supervisor,
     description: organization.description,
-    is_Active: organization.isActive
+    is_Active: organization.isActive,
   });
 };

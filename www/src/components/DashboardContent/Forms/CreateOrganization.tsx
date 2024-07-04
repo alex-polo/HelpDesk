@@ -2,13 +2,10 @@ import { useState } from 'react';
 import { Button, Container, Form, Row, Spinner } from 'react-bootstrap';
 import { IOrganizationObjectus, useCreateOrganizationObject } from '../../../services/Objectus';
 
-import style from './Form.module.css';
 import { toastError, toastSuccess, toastWarning } from '../../../services/NotifycationService';
 import { AxiosError } from 'axios';
-/*import { Navigate } from 'react-router-dom';
-import { AppRoutes } from '../../../routes/AppRoutes';*/
 
-export const CreateOrganization = () => {
+export const CreateOrganizationForm = () => {
   const [nameOrganization, setNameOrganization] = useState<string>('');
   const [addressOrganization, setAddressOrganization] = useState<string>('');
   const [innOrganization, setInnOrganization] = useState<string>('');
@@ -24,10 +21,10 @@ export const CreateOrganization = () => {
         id: 0,
         name: nameOrganization,
         address: addressOrganization,
-        inn: innOrganization,
-        supervisor: supervisorOrganization, 
+        inn: Number(innOrganization),
+        supervisor: supervisorOrganization,
         description: descriptionOrganization,
-        isActive: true
+        isActive: true,
       };
 
       createOrganizationMutation.mutate(organization);
@@ -35,7 +32,6 @@ export const CreateOrganization = () => {
       toastWarning('Имя объекта должно состоять минимум из 5 символов ');
     }
   };
-
 
   if (createOrganizationMutation.isError) {
     const statusCode: number | undefined = (createOrganizationMutation.error as AxiosError).response?.status;
@@ -54,7 +50,8 @@ export const CreateOrganization = () => {
       <h1 className="p-2 mb-3 text-start">Регистрация организации</h1>
       <Container>
         <Row className="col-sm-12 col-md-6 mx-auto">
-          <Form onSubmit={handleSubmit} className={style.create_organization_form}>
+          {/* <Form onSubmit={handleSubmit} className={style.create_organization_form}> */}
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="text-start mb-3" controlId="formName">
               <Form.Label>Наименование организации</Form.Label>
               <Form.Control

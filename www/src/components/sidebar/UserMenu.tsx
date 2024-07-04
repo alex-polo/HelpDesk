@@ -3,10 +3,16 @@ import { NavLink } from 'react-router-dom';
 
 import { useGetObjects } from '../../services/Objectus/hooks';
 
-import style from './Sidebar.module.css';
 import { AppRoutes } from '../../routes/AppRoutes';
+import { IUserOrganizationsObjectus } from '../../services/Objectus';
 
-const SidebarMenu = () => {
+import style from './Sidebar.module.css';
+
+type Props = {
+  organizations: IUserOrganizationsObjectus[];
+};
+
+const UserMenu = (props: Props) => {
   const { isLoading, isError, data } = useGetObjects();
 
   if (isLoading) <Spinner className={style.sidebar_spinner} animation="grow" variant="primary" />;
@@ -20,8 +26,24 @@ const SidebarMenu = () => {
 
   return (
     <>
+      {props.organizations.map((userOrganization) => (
+        <ul>
+          <li className="header_text">
+            {userOrganization.organization.name} | {userOrganization.role}
+          </li>
+          <li>Объекты</li>
+          <NavLink className="btn btn-primary btn-sm" to={AppRoutes.USER_PROFILE.createObject}>
+            + Новый объект
+          </NavLink>
+          <li>Настройки</li>
+          <NavLink to={AppRoutes.USER_PROFILE.appealsLink(userOrganization.organization.name)}>
+            Заявки по организации
+          </NavLink>
+        </ul>
+      ))}
       <ul>
         <li>Органицзация</li>
+
         <ul className={style.sidebar_nav}>
           <li className={style.sidebar_header}>Мои объекты</li>
 
@@ -54,4 +76,4 @@ const SidebarMenu = () => {
   );
 };
 
-export default SidebarMenu;
+export default UserMenu;

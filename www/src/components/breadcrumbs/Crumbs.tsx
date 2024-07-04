@@ -38,3 +38,11 @@ export const UserAddObjectCrumb = () => {
     </>
   );
 };
+
+export const UserAddOrganizationCrumb = () => {
+  return (
+    <>
+      <span>Создание организации</span>
+    </>
+  );
+};

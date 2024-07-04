@@ -11,10 +11,15 @@ export interface IOrganizationObjectus {
   id: number;
   name: string;
   address: string;
-  inn: string;
+  inn: number;
   supervisor: string;
   description: string | null;
   isActive: boolean;
+}
+
+export interface IUserOrganizationsObjectus {
+  role: string;
+  organization: IOrganizationObjectus;
 }
 
 export interface IObjectObjectus {
