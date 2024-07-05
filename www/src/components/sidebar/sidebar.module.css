@@ -10,6 +10,14 @@
   color: #f8f9fa;
 }
 
+.header_text_menu {
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 1.15rem 1.5rem;
+  display: block;
+  color: #f8f9fa;
+}
+
 .navbar-brand {
   /* border-bottom: 1px solid #6b72801a; */
   border-right: 1px solid #6b72801a;
@@ -23,10 +31,19 @@
 }
 
 .sidebar_header {
-  background: transparent;
-  padding: 1.5rem 1.5rem 0.375rem;
-  font-size: 0.75rem;
-  color: #ced4da;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 1.15rem 1.5rem;
+  display: block;
+  color: #f8f9fa;
+}
+
+.sidebar_header_link {
+  font-weight: 400;
+  font-size: 0.8rem;
+  padding: 1.15rem 1.5rem;
+  display: block;
+  color: #f8f9fa;
 }
 
 .sidebar {

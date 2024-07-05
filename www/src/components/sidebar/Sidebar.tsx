@@ -43,7 +43,7 @@ export const Sidebar = (props: Props) => {
             // Спиннер
             <SidebarSpinner />
           ) : // Проверка на суперпользователя
-          !props.isSuperUser ? (
+          props.isSuperUser ? (
             // Отрисовываем меню супепользователя
             <SuperuserMenu organizations={queryUserOrganizations.data} />
           ) : // Отрисовываем меню обычного пользователя

@@ -46,3 +46,12 @@ export const UserAddOrganizationCrumb = () => {
     </>
   );
 };
+
+export const ManagementOrganizationCrumb = () => {
+  return (
+    <>
+      {/* <Link to={AppRoutes.USER_PROFILE.}>Заявки</Link> */}
+      <span>Управление организациями</span>
+    </>
+  );
+};

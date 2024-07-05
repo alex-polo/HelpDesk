@@ -5,4 +5,5 @@ export {
   UserSettingsCrumb,
   UserAddObjectCrumb,
   UserAddOrganizationCrumb,
+  ManagementOrganizationCrumb,
 } from './Crumbs';
