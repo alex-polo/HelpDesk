@@ -22,14 +22,20 @@ import {
   ObjectSettings,
 } from './components/DashboardContent';
 import CreateObject from './components/DashboardContent/CreateObject';
+import { BitrixForm } from './components/DashboardContent/Forms/BitrixForm';
+import { CreateOrganizationFormModal } from './components/DashboardContent/Forms/CreateOrganizationModal';
 
 import './App.css';
+
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path={AppRoutes.PUBLIC.home} element={<RootLayout />}>
       <Route index element={<HomePage />} />
       <Route path="login" element={<LoginForm />} />
+      <Route path="bitrform" element={<BitrixForm />} />
+      <Route path="neworg" element={<CreateOrganizationFormModal />} />
       <Route path="*" element={<NotFoundForm />} />
       <Route element={<AuthLayout />}>
         <Route
