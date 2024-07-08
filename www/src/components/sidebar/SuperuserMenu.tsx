@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { AppRoutes } from '../../routes/AppRoutes';
-import { IOrganizationObjectus, IUserOrganizationsObjectus } from '../../services/Objectus';
+import { IUserOrganizationsObjectus } from '../../services/Objectus';
 
 import style from './Sidebar.module.css';
 
