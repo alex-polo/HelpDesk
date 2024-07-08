@@ -3,9 +3,9 @@ import { useOutlet } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Container, Spinner } from 'react-bootstrap';
 
-import NavBar from '../components/NavBar';
-import Sidebar from '../components/Sidebar';
-import Breadcrumbs from '../components/Breadcrumbs';
+import NavBar from '../components/navbar';
+import Sidebar from '../components/sidebar';
+import Breadcrumbs from '../components/breadcrumbs';
 
 import { useAuth } from '../context/AuthProvider';
 import { ObjectusProvider } from '../context/ObjectusProvider';

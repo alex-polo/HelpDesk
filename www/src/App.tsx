@@ -1,7 +1,7 @@
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { DashboardLayout } from './layouts/DashbordLayout';
 import { RootLayout } from './layouts/RootLayout';
-import { NotFoundForm } from './components/NotFound';
+import { NotFoundForm } from './components/notFound';
 import { LoginForm } from './components/Auth';
 import { AppRoutes } from './routes/AppRoutes';
 import { HomePage } from './components/HomePage';
@@ -13,7 +13,7 @@ import {
   UserAppealsCrumb,
   UserProfileCrumb,
   UserSettingsCrumb,
-} from './components/Breadcrumbs';
+} from './components/breadcrumbs';
 import {
   CreateOrganizationForm,
   DashboardHome,
@@ -22,14 +22,20 @@ import {
   ObjectSettings,
 } from './components/DashboardContent';
 import CreateObject from './components/DashboardContent/CreateObject';
+import { BitrixForm } from './components/DashboardContent/Forms/BitrixForm';
+import { CreateOrganizationFormModal } from './components/DashboardContent/Forms/CreateOrganizationModal';
 
 import './App.css';
+
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path={AppRoutes.PUBLIC.home} element={<RootLayout />}>
       <Route index element={<HomePage />} />
       <Route path="login" element={<LoginForm />} />
+      <Route path="bitrform" element={<BitrixForm />} />
+      <Route path="neworg" element={<CreateOrganizationFormModal />} />
       <Route path="*" element={<NotFoundForm />} />
       <Route element={<AuthLayout />}>
         <Route

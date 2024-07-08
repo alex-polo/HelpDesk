@@ -6,7 +6,7 @@ import SuperuserMenu from './SuperuserMenu';
 import { IUserOrganizationsObjectus, useGetUserOrganizations } from '../../services/Objectus';
 import SidebarSpinner from './SidebarSpinner';
 
-import style from './Sidebar.module.css';
+import style from './sidebar.module.css';
 
 type Props = {
   username: string | undefined;

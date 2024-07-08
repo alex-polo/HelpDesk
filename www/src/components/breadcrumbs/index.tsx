@@ -1,4 +1,4 @@
-export { Breadcrumbs as default } from './Breadcrumbs';
+export { Breadcrumbs as default } from './breadcrumbs';
 export {
   UserProfileCrumb,
   UserAppealsCrumb,
