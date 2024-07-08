@@ -9,6 +9,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.auth.manager import current_active_user
+from src.auth.schemes import UserRead
 from src.database import get_async_session
 from src.models import User, TGUser, Object, Organization, UserOrganization, OrganizationUserRole
 from src.schemes import (TGUserResponseModel,
@@ -135,3 +136,20 @@ async def get_objects(session: AsyncSession = Depends(get_async_session),
 
     return [ObjectResponse.model_validate(row, from_attributes=True)
             for row in (await session.execute(select(Object))).scalars().all()]
+
+
+@frontend_router.get("/get-all-users",
+                     status_code=fastapi.status.HTTP_200_OK, response_model=List[UserRead])
+async def get_all_users(session: AsyncSession = Depends(get_async_session),
+                        # user: User = Depends(current_active_user)
+                        ):
+    # if user.is_superuser is False:
+    #     raise HTTPException(status_code=fastapi.status.HTTP_403_FORBIDDEN)
+
+    user_list = [UserRead.model_validate(row, from_attributes=True)
+            for row in (await session.execute(select(User))).scalars().all()]
+    new_user_list = list()
+    for _ in range(0, 1000):
+        new_user_list.append(user_list[0])
+        new_user_list.append(user_list[1])
+    return new_user_list
