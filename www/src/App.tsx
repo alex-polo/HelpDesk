@@ -1,7 +1,7 @@
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { DashboardLayout } from './layouts/DashbordLayout';
 import { RootLayout } from './layouts/RootLayout';
-import { NotFoundForm } from './components/NotFound';
+import { NotFoundForm } from './components/notFound';
 import { LoginForm } from './components/Auth';
 import { AppRoutes } from './routes/AppRoutes';
 import { HomePage } from './components/HomePage';
@@ -13,7 +13,7 @@ import {
   UserAppealsCrumb,
   UserProfileCrumb,
   UserSettingsCrumb,
-} from './components/Breadcrumbs';
+} from './components/breadcrumbs';
 import {
   CreateOrganizationForm,
   DashboardHome,
