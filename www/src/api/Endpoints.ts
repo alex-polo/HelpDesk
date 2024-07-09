@@ -15,6 +15,7 @@ const Endpoints = {
     get_organization: `${BASE_ENDPOINT}/frontend/get-organization`,
     get_objects: `${BASE_ENDPOINT}/frontend/get-objects`,
     create_object: `${BASE_ENDPOINT}/frontend/create-object`,
+    get_all_users: `${BASE_ENDPOINT}/frontend/get-all-users`,
   },
 };
 

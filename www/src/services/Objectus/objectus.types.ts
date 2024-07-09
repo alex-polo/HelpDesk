@@ -87,3 +87,15 @@ export interface IAppealsObjectus {
   priority: string;
   status: string;
 }
+
+export interface IUser {
+  id: number;
+  email: string;
+  is_active: boolean;
+  is_superuser: boolean;
+  is_verified: boolean;
+  first_name: string;
+  second_name: string;
+  surname: string;
+  is_tg_bot: true;
+}

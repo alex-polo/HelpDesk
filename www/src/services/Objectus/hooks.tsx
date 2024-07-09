@@ -1,5 +1,11 @@
 import { UseQueryResult, useMutation, useQuery } from '@tanstack/react-query';
-import { createObjectAPI, getObjectsAPI, createOrganizationAPI, getOrganizationAPI } from './Api';
+import {
+  createObjectAPI,
+  getObjectsAPI,
+  createOrganizationAPI,
+  getOrganizationAPI,
+  getAllUsersObjectusAPI,
+} from './Api';
 import { IObjectObjectus } from './objectus.types';
 
 export const useGetObjects = (): UseQueryResult<IObjectObjectus[], Error> => {
@@ -40,4 +46,12 @@ export const useCreateObjectusObject = () => {
 
 export const useCreateOrganizationObject = () => {
   return useMutation({ mutationFn: createOrganizationAPI });
+};
+
+export const useAllUsersObjectus = () => {
+  return useQuery({
+    queryKey: ['getUsersObjectus'],
+    queryFn: getAllUsersObjectusAPI,
+    select: (data) => data.data,
+  });
 };

@@ -1,15 +1,7 @@
 import { AxiosResponse } from 'axios';
 import axiosInstance from '../../api/AxiosInstance';
 import Endpoints from '../../api/Endpoints';
-import { IObjectObjectus, IOrganizationObjectus, IUserOrganizationsObjectus } from './objectus.types';
-
-// export const getTgUsersAPI = async (token: string): Promise<AxiosResponse<IObjectusTgUser[]>> => {
-//   return await axiosInstance.get<IObjectusTgUser[]>(Endpoints.OBJECTUS.get_tg_users, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-// };
+import { IObjectObjectus, IOrganizationObjectus, IUser, IUserOrganizationsObjectus } from './objectus.types';
 
 export const getObjectsAPI = async (): Promise<AxiosResponse<IObjectObjectus[]>> => {
   return await axiosInstance.get<IObjectObjectus[]>(Endpoints.OBJECTUS.get_objects);
@@ -49,4 +41,8 @@ export const updateOrganizationAPI = async (organization: IOrganizationObjectus)
     description: organization.description,
     is_Active: organization.isActive,
   });
+};
+
+export const getAllUsersObjectusAPI = async (): Promise<AxiosResponse<IUser[]>> => {
+  return await axiosInstance.get<IUser[]>(Endpoints.OBJECTUS.update_organization);
 };

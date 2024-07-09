@@ -6,4 +6,9 @@ export type {
   IUserOrganizationsObjectus,
   IPerson,
 } from './objectus.types';
-export { useCreateObjectusObject, useCreateOrganizationObject, useGetUserOrganizations } from './hooks';
+export {
+  useCreateObjectusObject,
+  useCreateOrganizationObject,
+  useGetUserOrganizations,
+  useAllUsersObjectus,
+} from './hooks';

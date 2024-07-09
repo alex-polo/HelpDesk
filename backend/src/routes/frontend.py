@@ -149,7 +149,7 @@ async def get_all_users(session: AsyncSession = Depends(get_async_session),
     #     raise HTTPException(status_code=fastapi.status.HTTP_403_FORBIDDEN)
 
     user_list = [UserRead.model_validate(row, from_attributes=True)
-            for row in (await session.execute(select(User))).scalars().all()]
+                 for row in (await session.execute(select(User))).scalars().all()]
     new_user_list = list()
     for _ in range(0, 1000):
         new_user_list.append(user_list[0])

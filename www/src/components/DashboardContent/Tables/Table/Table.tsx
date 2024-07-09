@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import {
-  Column,
   ColumnFiltersState,
   flexRender,
   getCoreRowModel,
@@ -11,10 +10,11 @@ import {
 } from '@tanstack/react-table';
 
 import TableRow from './TableRow';
+import { IUser } from '../../../../services/Objectus/objectus.types';
 
 type Props = {
-  columns: [];
-  data: [];
+  columns: any;
+  data: IUser[];
   //   filter: ({ column }: { column: Column<never, unknown> }) => JSX.Element;
   Filter: ({ column }: any) => JSX.Element;
   refreshData: () => void;
@@ -35,7 +35,7 @@ export const Table = ({ columns, data, Filter, refreshData }: Props) => {
     enableMultiRowSelection: false,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(), //client side filtering
+    getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onRowSelectionChange: setRowSelection,
