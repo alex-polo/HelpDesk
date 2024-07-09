@@ -3,7 +3,7 @@ import { useOutlet } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Container, Spinner } from 'react-bootstrap';
 
-import NavBar from '../components/navbar';
+import NavBar from '../components/Navbar';
 import Sidebar from '../components/sidebar';
 import Breadcrumbs from '../components/Breadcrumbs';
 

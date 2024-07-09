@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { useAuth } from '../../context/AuthProvider';
 
-import style from './navbar.module.css';
+import style from './Navbar.module.css';
 
 type Props = {
   username: string;
