@@ -7,6 +7,7 @@ import { AxiosError } from 'axios';
 
 export const CreateOrganizationFormModal = () => {
   const [nameOrganization, setNameOrganization] = useState<string>('');
+  const [shortNameOrganization, setShortNameOrganization] = useState<string>('');
   const [addressOrganization, setAddressOrganization] = useState<string>('');
   const [innOrganization, setInnOrganization] = useState<string>('');
   const [supervisorOrganization, setSupervisorOrganization] = useState<string>('');
@@ -22,6 +23,7 @@ export const CreateOrganizationFormModal = () => {
       const organization: IOrganizationObjectus = {
         id: 0,
         name: nameOrganization,
+        short_name: shortNameOrganization,
         address: addressOrganization,
         inn: Number(innOrganization),
         supervisor: supervisorOrganization,
@@ -76,6 +78,15 @@ export const CreateOrganizationFormModal = () => {
                   onChange={(e) => setNameOrganization(e.target.value)}
                 />
               </Form.Group>
+              <Form.Group className="text-start mb-3" controlId="formShortName">
+              <Form.Label>Краткое наименование организации</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Краткое наименование организации"
+                disabled={createOrganizationMutation.isPending}
+                onChange={(e) => setShortNameOrganization(e.target.value)}
+              />
+            </Form.Group>
               <Form.Group className="text-start mb-3" controlId="formAddress">
                 <Form.Label>Адрес организации</Form.Label>
                 <Form.Control

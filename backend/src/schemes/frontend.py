@@ -13,6 +13,7 @@ class TGUserResponseModel(BaseModel):
 
 class CreateOrganizationQuery(BaseModel):
     name: str
+    short_name: str
     address: str
     inn: int
     supervisor: str

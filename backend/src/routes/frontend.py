@@ -50,6 +50,7 @@ async def create_organization(value: CreateOrganizationQuery,
         raise HTTPException(status_code=fastapi.status.HTTP_403_FORBIDDEN, detail="User is not superuser")
     try:
         await session.execute(insert(Organization).values(name=value.name,
+                                                          short_name=value.short_name,
                                                           address=value.address,
                                                           inn=value.inn,
                                                           supervisor=value.supervisor,
@@ -73,6 +74,7 @@ async def update_organization(value: OrganizationResponse,
         raise HTTPException(status_code=fastapi.status.HTTP_403_FORBIDDEN)
     try:
         await session.execute(update(Organization).values(name=value.name,
+                                                          short_name=value.short_name,
                                                           address=value.address,
                                                           inn=value.inn,
                                                           supervisor=value.supervisor,
