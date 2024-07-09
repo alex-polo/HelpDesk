@@ -18,7 +18,7 @@ export interface IndexRouteObject {
   data?: unknown;
 }
 
-const Breadcrumbs = () => {
+export const Breadcrumbs = () => {
   let matches: IndexRouteObject[] = useMatches();
   let crumbs: ReactElement[] = matches
     .filter((match) => Boolean(match.handle?.crumb))
@@ -35,5 +35,3 @@ const Breadcrumbs = () => {
       </Breadcrumb>
     );
 };
-
-export default Breadcrumbs;
