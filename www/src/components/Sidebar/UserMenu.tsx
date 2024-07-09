@@ -6,7 +6,7 @@ import { useGetObjects } from '../../services/Objectus/hooks';
 import { AppRoutes } from '../../routes/AppRoutes';
 import { IUserOrganizationsObjectus } from '../../services/Objectus';
 
-import style from './sidebar.module.css';
+import style from './Sidebar.module.css';
 
 type Props = {
   organizations: IUserOrganizationsObjectus[];

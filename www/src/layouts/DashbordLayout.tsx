@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Container, Spinner } from 'react-bootstrap';
 
 import NavBar from '../components/Navbar';
-import Sidebar from '../components/sidebar';
+import Sidebar from '../components/Sidebar';
 import Breadcrumbs from '../components/Breadcrumbs';
 
 import { useAuth } from '../context/AuthProvider';
