@@ -25,6 +25,7 @@ export const createObjectAPI = async (object: IObjectObjectus): Promise<AxiosRes
 export const createOrganizationAPI = async (organization: IOrganizationObjectus): Promise<AxiosResponse> => {
   return await axiosInstance.post(Endpoints.OBJECTUS.create_organization, {
     name: organization.name,
+    short_name: organization.short_name,
     address: organization.address,
     inn: organization.inn,
     supervisor: organization.supervisor,
@@ -41,6 +42,7 @@ export const updateOrganizationAPI = async (organization: IOrganizationObjectus)
   return await axiosInstance.post(Endpoints.OBJECTUS.update_organization, {
     id: 0,
     name: organization.name,
+    short_name: organization.short_name,
     address: organization.address,
     inn: organization.inn,
     supervision: organization.supervisor,

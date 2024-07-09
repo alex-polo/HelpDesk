@@ -10,6 +10,7 @@ export interface IPerson {
 export interface IOrganizationObjectus {
   id: number;
   name: string;
+  short_name: string;
   address: string;
   inn: number;
   supervisor: string;
